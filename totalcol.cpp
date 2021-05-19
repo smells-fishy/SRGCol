@@ -30,12 +30,12 @@ Graph::Graph(int o, int col) {
 }
 
 Graph::~Graph() {
-  delete adjlist;
-  delete colors;
+  delete [] adjlist;
+  delete [] colors;
 }
 
-void relabel() {
-  
+void Graph::adj_insert(int ind, int d) {
+  adjlist[ind].insert(adjlist[ind].end(), d);
 }
 
 void Graph::insert_or_eq(std::list<int> L, std::list<int>::iterator p, int d) {
@@ -47,16 +47,16 @@ void Graph::insert_or_eq(std::list<int> L, std::list<int>::iterator p, int d) {
 }
 
 void Graph::color(int k, int r) {
-  //Edge coloring with k colors first - we try this r times
   int count = 0;
   while(count < r) {
+    //Edge coloring with k colors first
     for(int i = 0; i < order_v; i++) {
       std::list<int>::iterator j;
       bool cavail[k];
       for(int u = 0; u < k; u++) {
         cavail[u] = true;
       }
-      for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
+      for(j = colors[i].begin(); j != colors[i].end(); j++) {
         cavail[*j] = false;
       }
       for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
@@ -68,9 +68,9 @@ void Graph::color(int k, int r) {
         }
       }
     }
-
+    //Vertex coloring with k colors now
   }
-
+  count++;
 }
 
 int parse() {
@@ -114,6 +114,7 @@ int main(int argc, char *argv[]) {
       for(int j = 0; j < order; j++) {
         int x;
         std::cin >> x;
+        graph.adj_insert(i, x);
       }
     }
 
@@ -127,5 +128,4 @@ int main(int argc, char *argv[]) {
   for(Graph i : graphs) {
     i.color(col, runs);
   }
-
 }
