@@ -15,16 +15,27 @@ class Graph {
     std::list<int> *colors;
   public:
     Graph(int, int);
+    ~Graph();
     void adj_insert(int, int);
     void color(int ,int);
     void color_insert(int, int);
     void insert_or_eq(std::list<int>, std::list<int>::iterator, int);
+    void relabel();
 };
 
 Graph::Graph(int o, int col) {
   order_v = o;
   adjlist = new std::list<int>[o];
   colors  = new std::list<int>[o];
+}
+
+Graph::~Graph() {
+  delete adjlist;
+  delete colors;
+}
+
+void relabel() {
+  
 }
 
 void Graph::insert_or_eq(std::list<int> L, std::list<int>::iterator p, int d) {
