@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdio>
 #include <forward_list>
 #include <iostream>
@@ -7,25 +8,61 @@
 #include <string>
 #include <vector>
 
-class Graph{
+class Graph {
   private:
-    int  order;
-    std::vector<std::list<int> > adjlist;
-    std::vector<std::list<int> > colors;
+    int  order_v;
+    std::list<int> *adjlist;
+    std::list<int> *colors;
   public:
     Graph(int, int);
     void adj_insert(int, int);
+    void color(int ,int);
     void color_insert(int, int);
+    void insert_or_eq(std::list<int>, std::list<int>::iterator, int);
 };
 
 Graph::Graph(int o, int col) {
-  order = o;
-  adjlist[o];
-  colors[o];
+  order_v = o;
+  adjlist = new std::list<int>[o];
+  colors  = new std::list<int>[o];
+}
+
+void Graph::insert_or_eq(std::list<int> L, std::list<int>::iterator p, int d) {
+  std::list<int>::iterator j;
+  for(j = L.begin(); j != L.end(); j++) {
+    if(*j == d) return;
+  }
+  L.insert(p, d);
+}
+
+void Graph::color(int k, int r) {
+  //Edge coloring with k colors first - we try this r times
+  int count = 0;
+  while(count < r) {
+    for(int i = 0; i < order_v; i++) {
+      std::list<int>::iterator j;
+      bool cavail[k];
+      for(int u = 0; u < k; u++) {
+        cavail[u] = true;
+      }
+      for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
+        cavail[*j] = false;
+      }
+      for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
+        for(int m = 0; m < k; m++) {
+          if(cavail[m]) {
+            insert_or_eq(colors[i], colors[i].end(), m);
+            insert_or_eq(colors[*j], colors[*j].end(), m);
+          }
+        }
+      }
+    }
+
+  }
+
 }
 
 int parse() {
-
   //Initial parsing of the showg output to find the graph order
   std::string first;
   std::getline(std::cin, first);
@@ -46,7 +83,6 @@ int parse() {
 }
 
 int main(int argc, char *argv[]) {
-
   //Function takes a filename as a command-line input
   freopen(argv[1], "r", stdin);
 
@@ -58,6 +94,7 @@ int main(int argc, char *argv[]) {
 
   int order = parse();
   int col = std::stoi(argv[2]);
+  int runs = 100;
   std::vector<Graph> graphs;
   while(!std::cin.eof() && std::cin.good()) {
     Graph graph(order, col);
@@ -77,7 +114,7 @@ int main(int argc, char *argv[]) {
 
   
   for(Graph i : graphs) {
-    
+    i.color(col, runs);
   }
 
 }
