@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cstdio>
 #include <forward_list>
+#include <fstream>
 #include <iostream>
 #include <list>
 #include <memory>
@@ -8,17 +9,22 @@
 #include <string>
 #include <vector>
 
+#if DEBUG == 1
+  std::ofstream log("log.txt");
+#endif
+
 class Graph {
   private:
     int  order_v;
     std::list<int> *adjlist;
-    std::list<int> *colors;
+    std::list<int> *ecolors;
+    int * vcolors;
   public:
     Graph(int, int);
     ~Graph();
     void adj_insert(int, int);
     void color(int ,int);
-    void color_insert(int, int);
+    void ecolor_insert(int, int);
     void insert_or_eq(std::list<int>, std::list<int>::iterator, int);
     void relabel();
 };
@@ -26,16 +32,24 @@ class Graph {
 Graph::Graph(int o, int col) {
   order_v = o;
   adjlist = new std::list<int>[o];
-  colors  = new std::list<int>[o];
+  ecolors = new std::list<int>[o];
+  vcolors = new int[o];
 }
 
 Graph::~Graph() {
   delete [] adjlist;
-  delete [] colors;
+  delete [] ecolors;
+  delete [] vcolors;
 }
 
 void Graph::adj_insert(int ind, int d) {
   adjlist[ind].insert(adjlist[ind].end(), d);
+#if DEBUG == 1
+  std::streambuf *coutbuf = std::cout.rdbuf(); 
+  std::cout.rdbuf(log.rdbuf()); 
+  std::cout << "Inserted edge (" << ind + 1 << ", " << d + 1 << ")\n"; 
+  std::cout.rdbuf(coutbuf);
+#endif
 }
 
 void Graph::insert_or_eq(std::list<int> L, std::list<int>::iterator p, int d) {
@@ -56,21 +70,42 @@ void Graph::color(int k, int r) {
       for(int u = 0; u < k; u++) {
         cavail[u] = true;
       }
-      for(j = colors[i].begin(); j != colors[i].end(); j++) {
+      for(j = ecolors[i].begin(); j != ecolors[i].end(); j++) {
         cavail[*j] = false;
       }
-      for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
+      j = adjlist[i].begin();
+      for(int v = 0; v < i + 1; i++) {
+        j = j++;
         for(int m = 0; m < k; m++) {
           if(cavail[m]) {
-            insert_or_eq(colors[i], colors[i].end(), m);
-            insert_or_eq(colors[*j], colors[*j].end(), m);
+            insert_or_eq(ecolors[i], ecolors[i].end(), m);
+            insert_or_eq(ecolors[*j], ecolors[*j].end(), m);
           }
         }
       }
     }
+
     //Vertex coloring with k colors now
+    for(int i = 0; i < order_v; i++) {
+      std::list<int>::iterator j;
+      bool cavail[k];
+      for(int u = 0; u < k; u++) {
+        cavail[u] = true;
+      }
+      for(j = ecolors[i].begin(); j != ecolors[i].end(); j++) {
+        cavail[*j] = false;
+      }
+      for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
+        cavail[vcolors[*j]] = false;
+      }
+      for(int m = 0; m < k; m++) {
+          if(cavail[m]) {
+            vcolors[i] = m;
+          }
+        }
+    }
+    count++;
   }
-  count++;
 }
 
 int parse() {
@@ -94,12 +129,15 @@ int parse() {
 }
 
 int main(int argc, char *argv[]) {
+
+  std::ios::sync_with_stdio(false);
+
   //Function takes a filename as a command-line input
   freopen(argv[1], "r", stdin);
 
   std::string outname = argv[1];
   outname.erase(outname.find("g6") - 1, outname.length());
-  outname.append("test.txt");
+  outname.append("col.txt");
 
   freopen(outname.c_str(), "w", stdout);
 
@@ -114,7 +152,7 @@ int main(int argc, char *argv[]) {
       for(int j = 0; j < order; j++) {
         int x;
         std::cin >> x;
-        graph.adj_insert(i, x);
+        if(x) graph.adj_insert(i, j);
       }
     }
 

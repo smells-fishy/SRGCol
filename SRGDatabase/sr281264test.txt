@@ -1,0 +1,4 @@
+K_4 graphs in graph 1: 240
+K_4 graphs in graph 2: 248
+K_4 graphs in graph 3: 240
+K_4 graphs in graph 4: 280
