@@ -3,6 +3,7 @@
 #include <forward_list>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <list>
 #include <memory>
 #include <new>
@@ -84,16 +85,15 @@ void Graph::color(int k, int r) {
       for(j = ecolors[i].begin(); j != ecolors[i].end(); j++) {
         cavail[*j] = false;
       }
-      //j = adjlist[i].begin();
-      for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
-      //for(int v = 0; v < i + 1; i++) {
-        //j = j++;
+      std::list<int>::iterator t;
+      std::advance(t, i);
+      for(j = adjlist[i].begin(); j != t; j++) {
         for(int m = 0; m < k; m++) {
           if(cavail[m]) {
-            ecolors[i].insert(ecolors[i].end(), m);
-            ecolors[*j].insert(ecolors[*j].end(), m);
-            //insert_or_eq(ecolors[i], ecolors[i].end(), m);
-            //insert_or_eq(ecolors[*j], ecolors[*j].end(), m);
+            //ecolors[i].insert(ecolors[i].end(), m);
+            //ecolors[*j].insert(ecolors[*j].end(), m);
+            insert_or_eq(ecolors[i], ecolors[i].end(), m);
+            insert_or_eq(ecolors[*j], ecolors[*j].end(), m);
           }
         }
       }
