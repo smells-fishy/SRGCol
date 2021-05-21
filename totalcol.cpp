@@ -24,8 +24,8 @@ class Graph {
     ~Graph();
     void adj_insert(int, int);
     void color(int ,int);
-    void ecolor_insert(int, int);
     void insert_or_eq(std::list<int>, std::list<int>::iterator, int);
+    void print_adj();
     void relabel();
 };
 
@@ -58,6 +58,16 @@ void Graph::insert_or_eq(std::list<int> L, std::list<int>::iterator p, int d) {
     if(*j == d) return;
   }
   L.insert(p, d);
+}
+
+void Graph::print_adj() {
+  for(int i = 0; i < order_v; i++) {
+    std::cout << i << ": ";
+    for(std::list<int>::iterator j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
+      if(j == --adjlist[i].end()) std::cout << *j << "\n";
+      else std::cout << *j << ", ";
+    }
+  }
 }
 
 void Graph::color(int k, int r) {
@@ -163,7 +173,9 @@ int main(int argc, char *argv[]) {
   }
 
   for(Graph *i : graphs) {
-    i->color(col, runs);
+#if DDEBUG == 1
+  i->print_adj();
+#endif
+    //i->color(col, runs);
   }
-  
 }
