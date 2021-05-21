@@ -34,6 +34,7 @@ Graph::Graph(int o, int col) {
   adjlist = new std::list<int>[o];
   ecolors = new std::list<int>[o];
   vcolors = new int[o];
+  for(int i = 0; i < o; i++) vcolors[i] = -1;
 }
 
 Graph::~Graph() {
@@ -109,7 +110,7 @@ void Graph::color(int k, int r) {
         cavail[*j] = false;
       }
       for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
-        cavail[vcolors[*j]] = false;
+        if(vcolors[*j] != -1) cavail[vcolors[*j]] = false;
       }
       for(int m = 0; m < k; m++) {
           if(cavail[m]) {
