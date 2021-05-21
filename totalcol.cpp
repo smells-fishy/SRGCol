@@ -144,15 +144,15 @@ int main(int argc, char *argv[]) {
   int order = parse();
   int col = std::stoi(argv[2]);
   int runs = 100;
-  std::vector<Graph> graphs;
+  std::vector<Graph*> graphs;
   while(!std::cin.eof() && std::cin.good()) {
-    Graph graph(order, col);
+    Graph *graph = new Graph(order, col);
     graphs.insert(graphs.end(), graph);
     for(int i = 0; i < order; i++) {
       for(int j = 0; j < order; j++) {
         int x;
         std::cin >> x;
-        if(x) graph.adj_insert(i, j);
+        if(x) graph->adj_insert(i, j);
       }
     }
 
@@ -162,8 +162,8 @@ int main(int argc, char *argv[]) {
     std::getline(std::cin, skip);
   }
 
-  
-  for(Graph i : graphs) {
-    i.color(col, runs);
+  for(Graph *i : graphs) {
+    i->color(col, runs);
   }
+  
 }
