@@ -83,13 +83,16 @@ void Graph::color(int k, int r) {
       for(j = ecolors[i].begin(); j != ecolors[i].end(); j++) {
         cavail[*j] = false;
       }
-      j = adjlist[i].begin();
-      for(int v = 0; v < i + 1; i++) {
-        j = j++;
+      //j = adjlist[i].begin();
+      for(j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
+      //for(int v = 0; v < i + 1; i++) {
+        //j = j++;
         for(int m = 0; m < k; m++) {
           if(cavail[m]) {
-            insert_or_eq(ecolors[i], ecolors[i].end(), m);
-            insert_or_eq(ecolors[*j], ecolors[*j].end(), m);
+            ecolors[i].insert(ecolors[i].end(), m);
+            ecolors[*j].insert(ecolors[*j].end(), m);
+            //insert_or_eq(ecolors[i], ecolors[i].end(), m);
+            //insert_or_eq(ecolors[*j], ecolors[*j].end(), m);
           }
         }
       }
@@ -165,6 +168,9 @@ int main(int argc, char *argv[]) {
         if(x) graph->adj_insert(i, j);
       }
     }
+#if DDEBUG == 1
+  graphs->print_adj();
+#endif
 
     std::string skip;
     std::getline(std::cin, skip);
@@ -173,9 +179,6 @@ int main(int argc, char *argv[]) {
   }
 
   for(Graph *i : graphs) {
-#if DDEBUG == 1
-  i->print_adj();
-#endif
-    //i->color(col, runs);
+    i->color(col, runs);
   }
 }
