@@ -7,7 +7,7 @@
 #include <list>
 #include <memory>
 #include <new>
-#include <set>
+#include <unordered_set>
 #include <string>
 #include <time.h>
 #include <utility>
@@ -17,24 +17,23 @@
   std::ofstream log("log.txt");
 #endif
 
-struct comp
-{
-  template<typename T>
-  bool operator()(const T &l, const T &r) const
-  {
-    if (l.first == r.first) {
-      return l.second < r.second;
+const int HASH_CONST = rand(); 
+
+namespace std {
+  template <> struct hash<std::pair<int, int> > {
+    size_t operator()(const std::pair<int, int> &x) const {
+      std::hash<std::string> h;
+      return (x.first + x.second) * HASH_CONST;
     }
-    return l.first < r.first;
-  }
-};
+  };
+}
 
 class Graph {
   private:
     int  order_v;
     std::list<int> *adjlist;
-    std::set<int> *ecolors;
-    std::set<std::pair<int, int>, comp> edge;
+    std::unordered_set<int> *ecolors;
+    std::unordered_set<std::pair<int, int> > edge;
     int * vcolors;
   public:
     Graph(int, int);
@@ -50,7 +49,7 @@ class Graph {
 Graph::Graph(int o, int col) {
   order_v = o;
   adjlist = new std::list<int>[o];
-  ecolors = new std::set<int>[o];
+  ecolors = new std::unordered_set<int>[o];
   vcolors = new int[o];
   for(int i = 0; i < o; i++) vcolors[i] = -1;
 }
@@ -93,9 +92,12 @@ void Graph::print_adj() {
 }
 
 void Graph::print_edges() {
+  int count = 0;
   for(auto const &p : edge) {
     std::cout << "(" << p.first << ", " << p.second << ")\n";
+    count++;
   }
+  std::cout << "Edges: " << count << "\n";
 }
 
 void Graph::relabel() {
@@ -111,10 +113,11 @@ void Graph::relabel() {
   }
 
   //Reassign the edges
-  for(auto p : edge) {
-    p.first = perm[p.first];
-    p.second = perm[p.second];
+  std::unordered_set<std::pair<int, int> > new_edge;
+  for(auto &p : edge) {
+    new_edge.insert(new_edge.end(), std::make_pair(std::min(perm[p.first], perm[p.second]), std::max(perm[p.first], perm[p.second])));
   }
+  edge = new_edge;
 
   //Reassign the adjlist
   for(int i = 0; i < order_v; i++) {
@@ -125,31 +128,49 @@ void Graph::relabel() {
   }
 
   //Create new adjlist
-  std::list<int> *adjlist_new;
+  std::list<int> *adjlist_new = new std::list<int>[order_v];
   for(int i = 0; i < order_v; i++) {
+    adjlist[i].sort();
     adjlist_new[perm[i]] = adjlist[i];
   }
   delete [] adjlist;
   adjlist = adjlist_new;
+
+#if DEBUG == 1
+  std::streambuf *coutbuf = std::cout.rdbuf(); 
+  std::cout.rdbuf(log.rdbuf()); 
+  print_adj();
+  print_edges();
+  std::cout.rdbuf(coutbuf);
+#endif
 }
 
 void Graph::color(int k, int r) {
   int count = 0;
+  int edges;
   std::vector<std::pair<int, int> > *color_classes = new std::vector<std::pair<int, int> >[k];
   while(count < r) {
     //Edge coloring first
+    
+    //Before each attempt, clear the color classes and color lists
+    edges = 0;
+    for(int i = 0; i < k; i++) {
+      color_classes[i].clear();
+    }
+    for(int i = 0; i < order_v; i++) {
+      ecolors[i].clear();
+    }
     for(auto const &p : edge) {
       bool cavail[k];
       for(int u = 0; u < k; u++) {
         cavail[u] = true;
       }
-      for(std::set<int>::iterator j = ecolors[p.first].begin(); j != ecolors[p.first].end(); j++) {
+      for(std::unordered_set<int>::iterator j = ecolors[p.first].begin(); j != ecolors[p.first].end(); j++) {
         cavail[*j] = false;
       }
-      for(std::set<int>::iterator j = ecolors[p.second].begin(); j != ecolors[p.second].end(); j++) {
+      for(std::unordered_set<int>::iterator j = ecolors[p.second].begin(); j != ecolors[p.second].end(); j++) {
         cavail[*j] = false;
       }
-      int edges = 0;
       for(int m = 0; m < k; m++) {
         if(cavail[m]) {
           color_classes[m].insert(color_classes[m].end(), p);
@@ -159,38 +180,51 @@ void Graph::color(int k, int r) {
           break;
         }
       }
-      if(edges != 130) {
-        //relabel();
-      }
     }
-    
-    //Vertex coloring with k colors now
-    /*
-    for(int i = 0; i < order_v; i++) {
-      bool cavail[k];
-      for(int u = 0; u < k; u++) {
-        cavail[u] = true;
-      }
-      for(std::set<int>::iterator j = ecolors[i].begin(); j != ecolors[i].end(); j++) {
-        cavail[*j] = false;
-      }
-      for(std::list<int>::iterator j = adjlist[i].begin(); j != adjlist[i].end(); j++) {
-        if(vcolors[*j] != -1) cavail[vcolors[*j]] = false;
-      }
-      for(int m = 0; m < k; m++) {
-        if(cavail[m]) {
-          vcolors[i] = m;
-          cavail[m] = false;
+    if(edges != edge.size()) {
+      relabel();
+    } else {
+      int vertct = 0;
+      std::vector<int> order(order_v);
+      for(int i = 0; i < order_v; i++) order[i] = i;
+      while(vertct < r) {
+        int vert = 0;
+        //Reset the vertex colorings
+        for(int i = 0; i < order_v; i++) vcolors[i] = -1;
+        for(int i = 0; i < order_v; i++) {
+          bool cavail[k];
+          for(int u = 0; u < k; u++) {
+            cavail[u] = true;
+          }
+          for(std::unordered_set<int>::iterator j = ecolors[order[i]].begin(); j != ecolors[order[i]].end(); j++) {
+            cavail[*j] = false;
+          }
+          for(std::list<int>::iterator j = adjlist[order[i]].begin(); j != adjlist[order[i]].end(); j++) {
+            if(vcolors[*j] != -1) cavail[vcolors[*j]] = false;
+          }
+          for(int m = 0; m < k; m++) {
+            if(cavail[m]) {
+              vcolors[order[i]] = m;
+              cavail[m] = false;
+              vert++;
+              break;
+            }
+          }
+        }
+        if(vert != order_v) {
+          std::random_shuffle (order.begin(), order.end());
+        } else {
           break;
         }
+        vertct++;
       }
     }
-    */
     count++;
   }
+
   //Print color classes to text file
   std::cout << "{\n";
-  int edges = 0;
+  edges = 0;
   for(int i = 0; i < k; i++) {
     std::cout << i << ": ";
     for(auto const &p : color_classes[i]) {
@@ -201,6 +235,11 @@ void Graph::color(int k, int r) {
   }
   std::cout << "}\n";
   std::cout << edges << "\n";
+  
+  //Print vertex colorings
+  for(int i = 0; i < order_v; i++) {
+    std::cout << "Vert " << i << ": " << vcolors[i] << "\n";
+  }
 }
 
 int parse() {
@@ -237,7 +276,7 @@ int main(int argc, char *argv[]) {
 
   int order = parse();
   int col = std::stoi(argv[2]);
-  int runs = 1;
+  int runs = 1000;
   std::vector<Graph*> graphs;
   while(!std::cin.eof() && std::cin.good()) {
     Graph *graph = new Graph(order, col);
