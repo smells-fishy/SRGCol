@@ -7,9 +7,10 @@
 #include <list>
 #include <memory>
 #include <new>
-#include <unordered_set>
 #include <string>
 #include <time.h>
+#include <tuple>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -26,6 +27,13 @@ namespace std {
       return (x.first + x.second) * HASH_CONST;
     }
   };
+
+  template <> struct hash<std::tuple<int, int, int> > {
+    size_t operator()(const std::tuple<int, int, int> &x) const {
+      std::hash<std::string> h;
+      return (std::get<0>(x) + std::get<1>(x) + std::get<2>(x)) * HASH_CONST;
+    }
+  };
 }
 
 class Graph {
@@ -34,6 +42,7 @@ class Graph {
     std::list<int> *adjlist;
     std::unordered_set<int> *ecolors;
     std::unordered_set<std::pair<int, int> > edge;
+    std::unordered_set<std::tuple<int, int, int> > triangle;
     int * vcolors;
   public:
     Graph(int, int);
@@ -44,6 +53,7 @@ class Graph {
     void print_adj();
     void print_edges();
     void relabel();
+    void triangles();
 };
 
 Graph::Graph(int o, int col) {
@@ -77,6 +87,22 @@ void Graph::edges() {
       edge.insert(edge.end(), std::make_pair(std::min(i, *j), std::max(i, *j)));
       j++;
       if(j == adjlist[i].end()) break;
+    }
+  }
+}
+
+void Graph::triangles() {
+  for(auto const &p : edge) { 
+    for(auto const &r : edge) {
+      if(p == r) ;
+      else {
+        if(p.first == r.first) {
+          if(edge.find(std::make_pair(p.second, r.second)) != edge.end()) {
+            auto tri = std::make_tuple(p.first, p.second, r.second);
+            triangle.insert(triangle.end(), tri);
+          }
+        }
+      }
     }
   }
 }
@@ -212,7 +238,7 @@ void Graph::color(int k, int r) {
           }
         }
         if(vert != order_v) {
-          std::random_shuffle (order.begin(), order.end());
+          std::random_shuffle(order.begin(), order.end());
         } else {
           break;
         }
@@ -276,7 +302,7 @@ int main(int argc, char *argv[]) {
 
   int order = parse();
   int col = std::stoi(argv[2]);
-  int runs = 1000;
+  int runs = std::stoi(argv[3]);
   std::vector<Graph*> graphs;
   while(!std::cin.eof() && std::cin.good()) {
     Graph *graph = new Graph(order, col);
