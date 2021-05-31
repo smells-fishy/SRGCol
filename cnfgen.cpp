@@ -150,7 +150,7 @@ inline int vindex(int j, int k) {
 inline int eindex(int j, int k, int vert) {
   //Returns first variable encoding data for edge j 
   //Edges are lexicographically ordered by std::set
-  return 2 * j * k + 2 * vert * k + 1;
+  return 2 * j * k + 2 * (vert - 1) * k + 1;
 }
 
 inline int sindex(int j, int k, int counter) {
