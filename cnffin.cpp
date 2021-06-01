@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <cstdio>
 #include <cstdlib>
-#include <filesystem>
 #include <forward_list>
 #include <fstream>
 #include <iostream>
@@ -9,6 +8,7 @@
 #include <memory>
 #include <new>
 #include <set>
+#include <sstream>
 #include <string>
 #include <time.h>
 #include <tuple>
@@ -23,17 +23,25 @@ int main(int argc, char *argv[]) {
   freopen(argv[1], "r+", stdin);
   //Compute the maximum variable and the number of clauses
 
+  //Copy the entire file
+  std::ifstream c(argv[1]);
+  std::stringstream buf;
+  buf << c.rdbuf();
+
   int clause = 0;
   int max = 0;
   std::string curr;
   while(std::cin >> curr) {
     if(curr.compare("0") == 0) clause++;
     else{
-      max = std::max(max, std::abs(std::stoi(curr)));
+      int abscurr = std::abs(std::stoi(curr));
+      max = std::max(max, abscurr);
     }
   }
 
   freopen(argv[1], "r+", stdout);
   std::cout << "p cnf " << max << " " << clause << std::endl;
+
+  std::cout << buf.str();
     
 }

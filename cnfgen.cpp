@@ -19,14 +19,14 @@
 #endif
 
 struct pair_cmp {
-  bool operator() (const std::pair<int, int> &a, const std::pair<int, int> &b) {
+  bool operator() (const std::pair<int, int> &a, const std::pair<int, int> &b) const {
     if(a.first == b.first) return a.second < b.second;
     else return a.first < b.first;
   }
 };
 
 struct tupl_cmp {
-  bool operator() (const std::tuple<int, int, int> &a, const std::tuple<int, int, int> &b) {
+  bool operator() (const std::tuple<int, int, int> &a, const std::tuple<int, int, int> &b) const {
     if(std::get<0>(a) == std::get<0>(b)) {
       if(std::get<1>(a) == std::get<1>(b)) return std::get<2>(a) < std::get<2>(b);
       else return std::get<1>(a) < std::get<1>(b);
@@ -270,7 +270,14 @@ int parse() {
 
 int main(int argc, char *argv[]) {
 
-  //Program takes inputs <filename> k
+  /*
+  *
+  *   Program takes following valid inputs:
+  *   ./. -g <filename> k
+  *   ./. -v <filename> 
+  * 
+  */
+
   if(argc < 3) throw 1;
 
   int k = std::stoi(argv[2]);
@@ -343,4 +350,5 @@ int main(int argc, char *argv[]) {
 
     count++;
   }
+
 }
