@@ -193,9 +193,6 @@ void amo(int k, int counter, int* max, int* clause) {
     *max = std::max(sindex(j + 1, k, counter), *max);
   }
   
-  //Last, we write the unit clause S_(i, j) so that there is exactly one true
-  std::cout << sindex(k, k, counter) << " " << 0 << std::endl;
-  *clause = *clause + 1;
 }
 
 /*
