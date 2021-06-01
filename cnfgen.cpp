@@ -53,7 +53,7 @@ class Graph {
     void print_edges();
     void triangles();
 
-    friend void col(Graph, int, int*);
+    friend void col(Graph, int);
 };
 
 Graph::Graph(int o) {
@@ -170,7 +170,7 @@ inline int sindex(int j, int k, int counter) {
 *
 */
 
-void equals_k(int k, int counter, int* max, int* clause) {
+void equals_k(int k, int counter) {
 
   //Abysmal bandaid: we encode at least one
   for(int j = 1; j < k + 1; j++) {
@@ -181,27 +181,20 @@ void equals_k(int k, int counter, int* max, int* clause) {
   //First, we write that for each v_(i, j) that NOT v_(i, j) OR S_(i, j)
   for(int j = 1; j < k + 1; j++) {
     std::cout << "-" << counter + j << " " << sindex(j, k, counter) << " " << 0 << std::endl;
-    *clause = *clause + 1;
-    *max = std::max(sindex(j, k, counter), *max);
   }
 
   //Next, we write that for each v_(i, j) that NOT S_(i, j) OR NOT v_(i, j + 1) 
   for(int j = 1; j < k + 1; j++) {
     std::cout << "-" << sindex(j, k, counter) << " " << "-" << counter + j + 1 << " " << 0 << std::endl;
-    *clause = *clause + 1;
-    *max = std::max(sindex(j, k, counter), *max);
   }
 
   //Next, we write that for each S_(i, j) that NOT S_(i, j) OR S_(i, j + 1)
   for(int j = 1; j < k; j++) {
     std::cout << "-" << sindex(j, k, counter) << " " << sindex(j + 1, k, counter) << " " << 0 << std::endl;
-    *clause = *clause + 1;
-    *max = std::max(sindex(j + 1, k, counter), *max);
   }
   
   //Last, we write the unit clause S_(i, j) so that there is exactly one true
   std::cout << sindex(k, k, counter) << " " << 0 << std::endl;
-  *clause = *clause + 1;
 }
 
 /*
@@ -216,7 +209,7 @@ void equals_k(int k, int counter, int* max, int* clause) {
 *
 */
 
-void col(Graph G, int k, int* clause) {
+void col(Graph G, int k) {
 
   //Encodes adjacency condition for each pair of adjacent vertices
   for(const auto &e : G.edge) {
@@ -224,7 +217,6 @@ void col(Graph G, int k, int* clause) {
     int second = e.second;
     for(int j = 0; j < k; j++) {
       std::cout << "-" << vindex(first, k) + j << " " << "-" << vindex(second, k) + j << " " << 0 << std::endl;
-      *clause = *clause + 1;
     }
   }
 
@@ -236,7 +228,6 @@ void col(Graph G, int k, int* clause) {
     for(int j = 0; j < k; j++) {
       std::cout << "-" << vindex(first, k) + j << " " << "-" << eindex(ind, k, G.order()) + j << " " << 0 << std::endl;
       std::cout << "-" << vindex(second, k) + j << " " << "-" << eindex(ind, k, G.order()) + j << " " << 0 << std::endl;
-      *clause = *clause + 2;
     }
     ind++;
   }
@@ -248,7 +239,6 @@ void col(Graph G, int k, int* clause) {
     for(std::set<std::pair<int, int>, pair_cmp>::iterator j = ++G.edge.find(e); j != G.edge.end(); j++) {
       if(e.first == (*j).first || e.first == (*j).second || e.second == (*j).second || e.second == (*j).second) { 
         std::cout << "-" << eindex(ind, k, G.order()) << " " << "-" << eindex(sind, k, G.order()) << " " << 0 << std::endl;
-        *clause = *clause + 1;
       }
       sind++;
     }
@@ -325,13 +315,11 @@ int main(int argc, char *argv[]) {
     freopen(outname.c_str(), "w", stdout);
 
     //Save a line for cnf header
-    std::cout << std::endl;
+    std::cout << -1 << std::endl;
 
     i->edges();
     i->triangles();
     int counter = 0;
-    int clause = 0;
-    int max = 0;
 
     /*
     *
@@ -342,20 +330,18 @@ int main(int argc, char *argv[]) {
     */
 
     for(int j = 0; j < i->order(); j++) {
-      equals_k(k, counter, &max, &clause);
+      equals_k(k, counter);
       counter += 2 * k;
     }
     for(int j = 0; j < i->edgesize(); j++) {
-      equals_k(k, counter, &max, &clause);
+      equals_k(k, counter);
       counter += 2 * k;
     }
 
-    col(*i, k, &clause);
+    col(*i, k);
 
-    fseek(stdout, 0L, SEEK_SET);
-    //rewind(stdout);
-    std::cout << "p cnf " << max << " " << clause;
-    
+    std::system((".\\cnffin " + outname).c_str());
+
     count++;
   }
 }
