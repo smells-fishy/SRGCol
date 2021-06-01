@@ -305,6 +305,8 @@ int main(int argc, char *argv[]) {
 
   for(Graph *i : graphs) {
     std::string outname = argv[1];
+    outname.erase(outname.find("SRGDatabase/"), std::string("SRGDatabase/").length());
+    outname = "CNF/" + outname;
     outname.erase(outname.find("g6") - 1, outname.length());
     outname.append("G");
     outname.append(std::to_string(count));
@@ -313,9 +315,6 @@ int main(int argc, char *argv[]) {
     outname.append(".cnf");
 
     freopen(outname.c_str(), "w", stdout);
-
-    //Save a line for cnf header
-    std::cout << -1 << std::endl;
 
     i->edges();
     i->triangles();
