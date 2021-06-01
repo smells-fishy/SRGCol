@@ -170,7 +170,13 @@ inline int sindex(int j, int k, int counter) {
 *
 */
 
-void amo(int k, int counter, int* max, int* clause) {
+void equals_k(int k, int counter, int* max, int* clause) {
+
+  //Abysmal bandaid: we encode at least one
+  for(int j = 1; j < k + 1; j++) {
+    std::cout << counter + j << " ";
+  }
+  std::cout << 0 << std::endl;
   
   //First, we write that for each v_(i, j) that NOT v_(i, j) OR S_(i, j)
   for(int j = 1; j < k + 1; j++) {
@@ -193,6 +199,9 @@ void amo(int k, int counter, int* max, int* clause) {
     *max = std::max(sindex(j + 1, k, counter), *max);
   }
   
+  //Last, we write the unit clause S_(i, j) so that there is exactly one true
+  std::cout << sindex(k, k, counter) << " " << 0 << std::endl;
+  *clause = *clause + 1;
 }
 
 /*
@@ -333,11 +342,11 @@ int main(int argc, char *argv[]) {
     */
 
     for(int j = 0; j < i->order(); j++) {
-      amo(k, counter, &max, &clause);
+      equals_k(k, counter, &max, &clause);
       counter += 2 * k;
     }
     for(int j = 0; j < i->edgesize(); j++) {
-      amo(k, counter, &max, &clause);
+      equals_k(k, counter, &max, &clause);
       counter += 2 * k;
     }
 
