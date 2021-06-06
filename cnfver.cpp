@@ -15,6 +15,7 @@
 #include <string.h>
 #include <time.h>
 #include <tuple>
+#include <unistd.h>
 #include <utility>
 #include <vector>
 
@@ -255,15 +256,43 @@ void verify(Graph *G, std::string sourcename, std::string outname, int col) {
 
 int main(int argc, char *argv[]) {
 
-  //The program takes in the inputs ./. N k l m c
+  //The program takes in the inputs ./. -vet N k l m c
   //and translates all witnesses associated with the 
   //given parameters
 
-  if(argc < 6) throw 1;
+  bool vertex, edge, triangle;
 
-  int c = std::stoi(argv[5]);
+  //Thanks to StackOverflow
+  int opt;
+  while((opt = getopt(argc, argv, "vet")) != -1) {
+    switch(opt) {
+      case 'v':
+        vertex = true;
+        break;
+      case 'e':
+        edge = true;
+        break;
+      case 't':
+        triangle = true;
+        break;
+      default:
+        fprintf(stderr, "Usage: %s [-vet] N k l m\n", argv[0]);
+        exit(-1);
+    }
+  }
+  if(optind == 1) {
+    fprintf(stderr, "Usage: %s [-vet] N k l m\n", argv[0]);
+    exit(-1);
+  }
 
-  std::string graphsource = "SRGDatabase/sr" + std::string(argv[1]) + argv[2] + argv[3] + argv[4] + ".g6.txt";
+  int N = optind;
+  int k = optind + 1;
+  int l = optind + 2;
+  int m = optind + 3;
+  int col = optind + 4;
+  int c = std::stoi(argv[col]);
+
+  std::string graphsource = "SRGDatabase/sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] + ".g6.txt";
 
   freopen(graphsource.c_str(), "r", stdin);
 
@@ -298,11 +327,26 @@ int main(int argc, char *argv[]) {
   int i = 1;
 
   for(Graph *j : graphs) {
-    std::string sourcename = "CNF/sr" + std::string(argv[1]) + argv[2] + argv[3] + argv[4] 
-      + "G" + std::to_string(i) + "col" + argv[5] + ".out";
+    std::string sourcename = "CNF/sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] 
+      + "G" + std::to_string(i);
 
-    std::string outname = "CNF/sr" + std::string(argv[1]) + argv[2] + argv[3] + argv[4] 
-      + "G" + std::to_string(i) + "col" + argv[5] + ".txt";
+    std::string outname = "CNF/sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] 
+      + "G" + std::to_string(i);
+
+    if(vertex) {
+      sourcename.append("v");
+      outname.append("v");
+    }
+    if(edge) {
+      sourcename.append("e");
+      outname.append("e");
+    }
+    if(triangle) {
+      sourcename.append("t");
+      outname.append("e");
+    }
+    sourcename = sourcename + "col" + argv[col] + ".out";
+    outname = outname + "col" + argv[col] + ".txt";
 
     verify(j, sourcename, outname, c);
     i++;
