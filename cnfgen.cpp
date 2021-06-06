@@ -14,7 +14,7 @@
 #include <utility>
 #include <vector>
 
-#if DEBUG == 1
+#ifdef DEBUG
   std::ofstream log("log.txt");
 #endif
 
@@ -52,6 +52,7 @@ class Graph {
     void print_adj();
     void print_edges();
     void triangles();
+    int  trianglesize();
 
     friend void col(Graph, int);
 };
@@ -112,6 +113,10 @@ void Graph::triangles() {
   }
 }
 
+int Graph::trianglesize() {
+  return this->triangle.size();
+}
+
 void Graph::print_adj() {
   for(int i = 0; i < order_v; i++) {
     std::cout << i << ": ";
@@ -150,7 +155,11 @@ inline int vindex(int j, int k) {
 inline int eindex(int j, int k, int vert) {
   //Returns first variable encoding data for edge j 
   //Edges are lexicographically ordered by std::set
-  return 2 * j * k + 2 * (vert - 1) * k + 1;
+  return 2 * j * k + 2 * vert * k + 1;
+}
+
+inline int tindex(int j, int k, int vert, int edge) {
+  return 2 * j * k + 2 * edge * k + 2 * vert * k + 1;
 }
 
 inline int sindex(int j, int k, int counter) {
@@ -211,9 +220,27 @@ void equals_k(int k, int counter) {
 
 void col(Graph G, int k) {
 
+  //Copy edges into a vector to make things easier
+  std::vector<std::pair<int, int> > edges;
+  std::copy(G.edge.begin(), G.edge.end(), std::back_inserter(edges));
+#if DEBUG == 2
+  std::streambuf *coutbuf = std::cout.rdbuf(); 
+  std::cout.rdbuf(log.rdbuf()); 
+  std::cout << "edges.size()" << edges.size() << std::endl; 
+  std::cout.rdbuf(coutbuf);
+#endif
+
+  //Copy triangles into a vector to make things easier
+  std::vector<std::tuple<int, int, int> > triangles;
+  std::copy(G.triangle.begin(), G.triangle.end(), std::back_inserter(triangles));
+
+  //Minor optimizations
+  int vert = G.order();
+  int edge = edges.size();
+
   //Encodes adjacency condition for each pair of adjacent vertices
   for(const auto &e : G.edge) {
-    int first = e.first;
+    int first  = e.first;
     int second = e.second;
     for(int j = 0; j < k; j++) {
       std::cout << "-" << vindex(first, k) + j << " " << "-" << vindex(second, k) + j << " " << 0 << std::endl;
@@ -221,30 +248,82 @@ void col(Graph G, int k) {
   }
 
   //Encodes adjacency condition for vertex-edge pairs
-  int ind = 1;
-  for(const auto &e : G.edge) {
-    int first = e.first;
+  for(int i = 0; i < edge; i++) {
+    std::pair<int, int> e = edges[i];
+    int first  = e.first;
     int second = e.second;
     for(int j = 0; j < k; j++) {
-      std::cout << "-" << vindex(first, k) + j << " " << "-" << eindex(ind, k, G.order()) + j << " " << 0 << std::endl;
-      std::cout << "-" << vindex(second, k) + j << " " << "-" << eindex(ind, k, G.order()) + j << " " << 0 << std::endl;
+      std::cout << "-" << vindex(first, k) + j  << " " << "-" << eindex(i, k, vert) + j << " " << 0 << std::endl;
+      std::cout << "-" << vindex(second, k) + j << " " << "-" << eindex(i, k, vert) + j << " " << 0 << std::endl;
     }
-    ind++;
   }
 
   //Encodes adjacency condition for edge-edge pairs
-  ind = 1;
-  for(const auto &e : G.edge) {
-    int sind = ind + 1;
-    for(std::set<std::pair<int, int>, pair_cmp>::iterator j = ++G.edge.find(e); j != G.edge.end(); j++) {
-      if(e.first == (*j).first || e.first == (*j).second || e.second == (*j).second || e.second == (*j).second) { 
-        std::cout << "-" << eindex(ind, k, G.order()) << " " << "-" << eindex(sind, k, G.order()) << " " << 0 << std::endl;
+  for(int i = 0; i < edge - 1; i++) {
+    for(int j = i + 1; j < edge; j++) {
+      std::pair<int, int> e1 = edges[i];
+      std::pair<int, int> e2 = edges[j];
+      if(e1.first == e2.first || e1.first == e2.second || e1.second == e2.second || e1.second == e2.first) { 
+        for(int m = 0; m < k; m++) {
+          std::cout << "-" << eindex(i, k, vert) + m << " " << "-" << eindex(j, k, vert) + m << " " << 0 << std::endl;
+        }
       }
-      sind++;
     }
-    ind++;
   }
-  
+
+  //Encodes adjacency condition for triangle-vertex pairs
+  int triupper = triangles.size();
+  for(int i = 0; i < triupper - 1; i++) {
+    std::tuple<int, int, int> t = triangles[i];
+    int first  = std::get<0>(t);
+    int second = std::get<1>(t);
+    int third  = std::get<2>(t);
+    for(int j = 0; j < k; j++) {
+      std::cout << "-" << vindex(first, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+      std::cout << "-" << vindex(second, k) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+      std::cout << "-" << vindex(third, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+    }
+  }
+
+  //Encodes adjacency condition for triangle-edge pairs
+  for(int i = 0; i < triupper - 1; i++) {
+    std::tuple<int, int, int> t = triangles[i];
+    int first  = std::get<0>(t);
+    int second = std::get<1>(t);
+    int third  = std::get<2>(t);
+    std::pair<int, int> e1 = std::make_pair(first, second);
+    std::pair<int, int> e2 = std::make_pair(first, third);
+    std::pair<int, int> e3 = std::make_pair(second, third);
+    int ind1 = std::find(edges.begin(), edges.end(), e1) - edges.begin();
+    int ind2 = std::find(edges.begin(), edges.end(), e2) - edges.begin();
+    int ind3 = std::find(edges.begin(), edges.end(), e3) - edges.begin();
+    for(int j = 0; j < k; j++) {
+      std::cout << "-" << eindex(ind1, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+      std::cout << "-" << eindex(ind2, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+      std::cout << "-" << eindex(ind3, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+    }
+  }
+
+  //Encodes adjacency for triangle-triangle pairs
+  //We say that two triangles are adjacent iff they share an edge or a vertex
+  for(int i = 0; i < triupper - 1; i++) {
+    for(int j = i + 1; j < triupper; j++) {
+      std::tuple<int, int, int> t1 = triangles[i];
+      std::tuple<int, int, int> t2 = triangles[j];
+      int t1f = std::get<0>(t1);
+      int t1s = std::get<1>(t1);
+      int t1t = std::get<2>(t1);
+      int t2f = std::get<0>(t2);
+      int t2s = std::get<1>(t2);
+      int t2t = std::get<2>(t2);
+      if(t1f == t2f || t1s == t2s || t1t == t2t || t1s == t2f || t1t == t1s 
+        || t1f == t2t || t1t == t2f || t1f == t2s || t1s == t2t) {
+        for(int m = 0; m < k; m++) {
+          std::cout << "-" << tindex(i, k, vert, edge) + m << " " << "-" << tindex(j, k, vert, edge) + m << " " << 0 << std::endl;
+        }
+      }
+    }
+  }
 }
 
 int parse() {
@@ -273,8 +352,7 @@ int main(int argc, char *argv[]) {
   /*
   *
   *   Program takes following valid inputs:
-  *   ./. -g <filename> k
-  *   ./. -v <filename> 
+  *   ./. <filename> k
   * 
   */
 
@@ -311,6 +389,9 @@ int main(int argc, char *argv[]) {
   }
 
   for(Graph *i : graphs) {
+    i->edges();
+    i->triangles();
+
     std::string outname = argv[1];
     outname.erase(outname.find("SRGDatabase/"), std::string("SRGDatabase/").length());
     outname = "CNF/" + outname;
@@ -323,30 +404,39 @@ int main(int argc, char *argv[]) {
 
     freopen(outname.c_str(), "w", stdout);
 
-    i->edges();
-    i->triangles();
     int counter = 0;
 
     /*
     *
     *  This formulation allows us to keep track of which variables are for which purpose: 
     *  in essence, if a variable is nk + 1, even n, then it the start of 10 non-sequential
-    *  counting variables. The first i->order() of these represent vertices
+    *  counting variables. The first i->order() of these represent vertices, the rest are
+    *  edges
     * 
     */
 
-    for(int j = 0; j < i->order(); j++) {
+    //Small optimization
+    int verts = i->order();
+    int edges = i->edgesize();
+    int tris =  i->trianglesize();
+
+    for(int j = 0; j < verts; j++) {
       equals_k(k, counter);
       counter += 2 * k;
     }
-    for(int j = 0; j < i->edgesize(); j++) {
+    for(int j = 0; j < edges; j++) {
       equals_k(k, counter);
       counter += 2 * k;
     }
+    for(int j = 0; j < tris; j++) {
+      equals_k(k, counter);
+      counter += 2 * k;
+    }
+
 
     col(*i, k);
 
-    std::system((".\\cnffin " + outname).c_str());
+    std::system(("./cnffin " + outname).c_str());
 
     count++;
   }
