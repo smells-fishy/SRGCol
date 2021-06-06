@@ -11,6 +11,7 @@
 #include <string>
 #include <time.h>
 #include <tuple>
+#include <unistd.h>
 #include <utility>
 #include <vector>
 
@@ -54,7 +55,7 @@ class Graph {
     void triangles();
     int  trianglesize();
 
-    friend void col(Graph, int);
+    friend void col(Graph, int, bool, bool, bool);
 };
 
 Graph::Graph(int o) {
@@ -218,17 +219,11 @@ void equals_k(int k, int counter) {
 *
 */
 
-void col(Graph G, int k) {
+void col(Graph G, int k, bool vertex, bool edge, bool triangle) {
 
   //Copy edges into a vector to make things easier
   std::vector<std::pair<int, int> > edges;
   std::copy(G.edge.begin(), G.edge.end(), std::back_inserter(edges));
-#if DEBUG == 2
-  std::streambuf *coutbuf = std::cout.rdbuf(); 
-  std::cout.rdbuf(log.rdbuf()); 
-  std::cout << "edges.size()" << edges.size() << std::endl; 
-  std::cout.rdbuf(coutbuf);
-#endif
 
   //Copy triangles into a vector to make things easier
   std::vector<std::tuple<int, int, int> > triangles;
@@ -236,90 +231,102 @@ void col(Graph G, int k) {
 
   //Minor optimizations
   int vert = G.order();
-  int edge = edges.size();
+  int edgesize = edges.size();
+  int triupper = triangles.size();
 
-  //Encodes adjacency condition for each pair of adjacent vertices
-  for(const auto &e : G.edge) {
-    int first  = e.first;
-    int second = e.second;
-    for(int j = 0; j < k; j++) {
-      std::cout << "-" << vindex(first, k) + j << " " << "-" << vindex(second, k) + j << " " << 0 << std::endl;
+  if(vertex) {
+    //Encodes adjacency condition for each pair of adjacent vertices
+    for (const auto &e : G.edge) {
+      int first = e.first;
+      int second = e.second;
+      for (int j = 0; j < k; j++) {
+        std::cout << "-" << vindex(first, k) + j << " " << "-" << vindex(second, k) + j << " " << 0 << std::endl;
+      }
     }
   }
 
-  //Encodes adjacency condition for vertex-edge pairs
-  for(int i = 0; i < edge; i++) {
-    std::pair<int, int> e = edges[i];
-    int first  = e.first;
-    int second = e.second;
-    for(int j = 0; j < k; j++) {
-      std::cout << "-" << vindex(first, k) + j  << " " << "-" << eindex(i, k, vert) + j << " " << 0 << std::endl;
-      std::cout << "-" << vindex(second, k) + j << " " << "-" << eindex(i, k, vert) + j << " " << 0 << std::endl;
+  if(vertex && edge) {
+    //Encodes adjacency condition for vertex-edge pairs
+    for(int i = 0; i < edgesize; i++) {
+      std::pair<int, int> e = edges[i];
+      int first  = e.first;
+      int second = e.second;
+      for(int j = 0; j < k; j++) {
+        std::cout << "-" << vindex(first, k) + j  << " " << "-" << eindex(i, k, vert) + j << " " << 0 << std::endl;
+        std::cout << "-" << vindex(second, k) + j << " " << "-" << eindex(i, k, vert) + j << " " << 0 << std::endl;
+      }
     }
   }
 
-  //Encodes adjacency condition for edge-edge pairs
-  for(int i = 0; i < edge - 1; i++) {
-    for(int j = i + 1; j < edge; j++) {
-      std::pair<int, int> e1 = edges[i];
-      std::pair<int, int> e2 = edges[j];
-      if(e1.first == e2.first || e1.first == e2.second || e1.second == e2.second || e1.second == e2.first) { 
-        for(int m = 0; m < k; m++) {
-          std::cout << "-" << eindex(i, k, vert) + m << " " << "-" << eindex(j, k, vert) + m << " " << 0 << std::endl;
+  if(edge){
+    //Encodes adjacency condition for edge-edge pairs
+    for(int i = 0; i < edgesize - 1; i++) {
+      for(int j = i + 1; j < edgesize; j++) {
+        std::pair<int, int> e1 = edges[i];
+        std::pair<int, int> e2 = edges[j];
+        if(e1.first == e2.first || e1.first == e2.second || e1.second == e2.second || e1.second == e2.first) { 
+          for(int m = 0; m < k; m++) {
+            std::cout << "-" << eindex(i, k, vert) + m << " " << "-" << eindex(j, k, vert) + m << " " << 0 << std::endl;
+          }
         }
       }
     }
   }
 
-  //Encodes adjacency condition for triangle-vertex pairs
-  int triupper = triangles.size();
-  for(int i = 0; i < triupper - 1; i++) {
-    std::tuple<int, int, int> t = triangles[i];
-    int first  = std::get<0>(t);
-    int second = std::get<1>(t);
-    int third  = std::get<2>(t);
-    for(int j = 0; j < k; j++) {
-      std::cout << "-" << vindex(first, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-      std::cout << "-" << vindex(second, k) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-      std::cout << "-" << vindex(third, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+  if(vertex && triangle) {
+    //Encodes adjacency condition for triangle-vertex pairs
+    for(int i = 0; i < triupper - 1; i++) {
+      std::tuple<int, int, int> t = triangles[i];
+      int first  = std::get<0>(t);
+      int second = std::get<1>(t);
+      int third  = std::get<2>(t);
+      for(int j = 0; j < k; j++) {
+        std::cout << "-" << vindex(first, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+        std::cout << "-" << vindex(second, k) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+        std::cout << "-" << vindex(third, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+      }
     }
   }
 
-  //Encodes adjacency condition for triangle-edge pairs
-  for(int i = 0; i < triupper - 1; i++) {
-    std::tuple<int, int, int> t = triangles[i];
-    int first  = std::get<0>(t);
-    int second = std::get<1>(t);
-    int third  = std::get<2>(t);
-    std::pair<int, int> e1 = std::make_pair(first, second);
-    std::pair<int, int> e2 = std::make_pair(first, third);
-    std::pair<int, int> e3 = std::make_pair(second, third);
-    int ind1 = std::find(edges.begin(), edges.end(), e1) - edges.begin();
-    int ind2 = std::find(edges.begin(), edges.end(), e2) - edges.begin();
-    int ind3 = std::find(edges.begin(), edges.end(), e3) - edges.begin();
-    for(int j = 0; j < k; j++) {
-      std::cout << "-" << eindex(ind1, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-      std::cout << "-" << eindex(ind2, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-      std::cout << "-" << eindex(ind3, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+  if(triangle && edge) {
+    //Encodes adjacency condition for triangle-edge pairs
+    for(int i = 0; i < triupper - 1; i++) {
+      std::tuple<int, int, int> t = triangles[i];
+      int first  = std::get<0>(t);
+      int second = std::get<1>(t);
+      int third  = std::get<2>(t);
+      std::pair<int, int> e1 = std::make_pair(first, second);
+      std::pair<int, int> e2 = std::make_pair(first, third);
+      std::pair<int, int> e3 = std::make_pair(second, third);
+      int ind1 = std::find(edges.begin(), edges.end(), e1) - edges.begin();
+      int ind2 = std::find(edges.begin(), edges.end(), e2) - edges.begin();
+      int ind3 = std::find(edges.begin(), edges.end(), e3) - edges.begin();
+      for(int j = 0; j < k; j++) {
+        std::cout << "-" << eindex(ind1, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+        std::cout << "-" << eindex(ind2, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+        std::cout << "-" << eindex(ind3, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+      }
     }
   }
 
-  //Encodes adjacency for triangle-triangle pairs
-  //We say that two triangles are adjacent iff they share an edge or a vertex
-  for(int i = 0; i < triupper - 1; i++) {
-    for(int j = i + 1; j < triupper; j++) {
-      std::tuple<int, int, int> t1 = triangles[i];
-      std::tuple<int, int, int> t2 = triangles[j];
-      int t1f = std::get<0>(t1);
-      int t1s = std::get<1>(t1);
-      int t1t = std::get<2>(t1);
-      int t2f = std::get<0>(t2);
-      int t2s = std::get<1>(t2);
-      int t2t = std::get<2>(t2);
-      if(t1f == t2f || t1s == t2s || t1t == t2t || t1s == t2f || t1t == t1s 
-        || t1f == t2t || t1t == t2f || t1f == t2s || t1s == t2t) {
-        for(int m = 0; m < k; m++) {
-          std::cout << "-" << tindex(i, k, vert, edge) + m << " " << "-" << tindex(j, k, vert, edge) + m << " " << 0 << std::endl;
+  if(triangle) {
+    //Encodes adjacency for triangle-triangle pairs
+    //We say that two triangles are adjacent iff they share an edge or a vertex
+    for(int i = 0; i < triupper - 1; i++) {
+      for(int j = i + 1; j < triupper; j++) {
+        std::tuple<int, int, int> t1 = triangles[i];
+        std::tuple<int, int, int> t2 = triangles[j];
+        int t1f = std::get<0>(t1);
+        int t1s = std::get<1>(t1);
+        int t1t = std::get<2>(t1);
+        int t2f = std::get<0>(t2);
+        int t2s = std::get<1>(t2);
+        int t2t = std::get<2>(t2);
+        if(t1f == t2f || t1s == t2s || t1t == t2t || t1s == t2f || t1t == t1s 
+          || t1f == t2t || t1t == t2f || t1f == t2s || t1s == t2t) {
+          for(int m = 0; m < k; m++) {
+            std::cout << "-" << tindex(i, k, vert, edge) + m << " " << "-" << tindex(j, k, vert, edge) + m << " " << 0 << std::endl;
+          }
         }
       }
     }
@@ -352,15 +359,42 @@ int main(int argc, char *argv[]) {
   /*
   *
   *   Program takes following valid inputs:
-  *   ./. <filename> k
+  *   ./. -v <filename> k   vertex coloring
+  *   ./. -e <filename> k   edge coloring
+  *   ./. -t <filename> k   triangle coloring
   * 
+  *   combinations of the above can be used to 
+  *   generate different combinations of colorings
   */
 
-  if(argc < 3) throw 1;
+  bool vertex, edge, triangle;
 
-  int k = std::stoi(argv[2]);
+  //Thanks to StackOverflow
+  int opt;
+  while((opt = getopt(argc, argv, "vet")) != -1) {
+    switch(opt) {
+      case 'v':
+        vertex = true;
+        break;
+      case 'e':
+        edge = true;
+        break;
+      case 't':
+        triangle = true;
+        break;
+      default:
+        fprintf(stderr, "Usage: %s [-vet] [file] [colors]\n", argv[0]);
+        exit(-1);
+    }
+  }
+  if(optind == 1) {
+    fprintf(stderr, "Usage: %s [-vet] [file] [colors]\n", argv[0]);
+    exit(-1);
+  }
 
-  freopen(argv[1], "r", stdin);
+  int k = std::stoi(argv[optind + 1]);
+
+  freopen(argv[optind], "r", stdin);
 
   std::ios::sync_with_stdio(false);
 
@@ -392,14 +426,23 @@ int main(int argc, char *argv[]) {
     i->edges();
     i->triangles();
 
-    std::string outname = argv[1];
+    std::string outname = argv[optind];
     outname.erase(outname.find("SRGDatabase/"), std::string("SRGDatabase/").length());
     outname = "CNF/" + outname;
     outname.erase(outname.find("g6") - 1, outname.length());
     outname.append("G");
     outname.append(std::to_string(count));
+    if(vertex) {
+      outname.append("v");
+    }
+    if(edge) {
+      outname.append("e");
+    }
+    if(triangle) {
+      outname.append("t");
+    }
     outname.append("col");
-    outname.append(argv[2]);
+    outname.append(argv[optind + 1]);
     outname.append(".cnf");
 
     freopen(outname.c_str(), "w", stdout);
@@ -420,21 +463,26 @@ int main(int argc, char *argv[]) {
     int edges = i->edgesize();
     int tris =  i->trianglesize();
 
-    for(int j = 0; j < verts; j++) {
-      equals_k(k, counter);
-      counter += 2 * k;
+    if(vertex) {
+      for(int j = 0; j < verts; j++) {
+        equals_k(k, counter);
+        counter += 2 * k;
+      }
     }
-    for(int j = 0; j < edges; j++) {
-      equals_k(k, counter);
-      counter += 2 * k;
+    if(edge) {
+      for(int j = 0; j < edges; j++) {
+        equals_k(k, counter);
+        counter += 2 * k;
+      }
     }
-    for(int j = 0; j < tris; j++) {
-      equals_k(k, counter);
-      counter += 2 * k;
+    if(triangle) {
+      for(int j = 0; j < tris; j++) {
+        equals_k(k, counter);
+        counter += 2 * k;
+      }
     }
 
-
-    col(*i, k);
+    col(*i, k, vertex, edge, triangle);
 
     std::system(("./cnffin " + outname).c_str());
 
