@@ -1,0 +1,315 @@
+Vertex 0: Color 11
+Vertex 1: Color 2
+Vertex 2: Color 5
+Vertex 3: Color 4
+Vertex 4: Color 12
+Vertex 5: Color 7
+Vertex 6: Color 8
+Vertex 7: Color 4
+Vertex 8: Color 16
+Vertex 9: Color 9
+Vertex 10: Color 6
+Vertex 11: Color 8
+Vertex 12: Color 8
+Vertex 13: Color 12
+Vertex 14: Color 4
+Vertex 15: Color 14
+Vertex 16: Color 16
+Vertex 17: Color 11
+Vertex 18: Color 13
+Vertex 19: Color 15
+Vertex 20: Color 13
+Vertex 21: Color 10
+Vertex 22: Color 18
+Vertex 23: Color 13
+Vertex 24: Color 12
+Vertex 25: Color 11
+Vertex 26: Color 3
+Vertex 27: Color 17
+Vertex 28: Color 7
+Vertex 29: Color 2
+Vertex 30: Color 2
+Vertex 31: Color 18
+Vertex 32: Color 18
+Vertex 33: Color 16
+Vertex 34: Color 7
+Edge (0, 1): Color 15
+Edge (0, 2): Color 9
+Edge (0, 3): Color 10
+Edge (0, 4): Color 6
+Edge (0, 5): Color 14
+Edge (0, 6): Color 4
+Edge (0, 7): Color 12
+Edge (0, 8): Color 5
+Edge (0, 9): Color 13
+Edge (0, 10): Color 8
+Edge (0, 11): Color 3
+Edge (0, 12): Color 17
+Edge (0, 13): Color 18
+Edge (0, 14): Color 16
+Edge (0, 15): Color 2
+Edge (0, 16): Color 7
+Edge (1, 2): Color 3
+Edge (1, 3): Color 7
+Edge (1, 4): Color 5
+Edge (1, 5): Color 4
+Edge (1, 6): Color 12
+Edge (1, 7): Color 6
+Edge (1, 17): Color 8
+Edge (1, 18): Color 16
+Edge (1, 19): Color 13
+Edge (1, 20): Color 11
+Edge (1, 21): Color 18
+Edge (1, 22): Color 17
+Edge (1, 23): Color 10
+Edge (1, 24): Color 9
+Edge (1, 25): Color 14
+Edge (2, 5): Color 11
+Edge (2, 12): Color 6
+Edge (2, 13): Color 4
+Edge (2, 14): Color 2
+Edge (2, 16): Color 14
+Edge (2, 19): Color 12
+Edge (2, 21): Color 13
+Edge (2, 24): Color 7
+Edge (2, 25): Color 8
+Edge (2, 26): Color 10
+Edge (2, 27): Color 18
+Edge (2, 28): Color 15
+Edge (2, 31): Color 16
+Edge (2, 34): Color 17
+Edge (3, 6): Color 9
+Edge (3, 10): Color 5
+Edge (3, 11): Color 6
+Edge (3, 13): Color 2
+Edge (3, 15): Color 8
+Edge (3, 17): Color 12
+Edge (3, 23): Color 15
+Edge (3, 24): Color 11
+Edge (3, 25): Color 13
+Edge (3, 27): Color 16
+Edge (3, 28): Color 18
+Edge (3, 32): Color 17
+Edge (3, 33): Color 3
+Edge (3, 34): Color 14
+Edge (4, 7): Color 11
+Edge (4, 9): Color 10
+Edge (4, 11): Color 18
+Edge (4, 14): Color 8
+Edge (4, 16): Color 15
+Edge (4, 19): Color 7
+Edge (4, 20): Color 4
+Edge (4, 22): Color 13
+Edge (4, 23): Color 16
+Edge (4, 28): Color 3
+Edge (4, 31): Color 17
+Edge (4, 32): Color 14
+Edge (4, 33): Color 9
+Edge (4, 34): Color 2
+Edge (5, 8): Color 3
+Edge (5, 9): Color 12
+Edge (5, 13): Color 9
+Edge (5, 15): Color 13
+Edge (5, 21): Color 8
+Edge (5, 22): Color 16
+Edge (5, 23): Color 5
+Edge (5, 25): Color 2
+Edge (5, 29): Color 18
+Edge (5, 30): Color 17
+Edge (5, 31): Color 15
+Edge (5, 32): Color 10
+Edge (5, 33): Color 6
+Edge (6, 7): Color 3
+Edge (6, 14): Color 18
+Edge (6, 15): Color 17
+Edge (6, 16): Color 13
+Edge (6, 18): Color 10
+Edge (6, 21): Color 11
+Edge (6, 22): Color 14
+Edge (6, 26): Color 16
+Edge (6, 27): Color 2
+Edge (6, 29): Color 15
+Edge (6, 30): Color 7
+Edge (6, 32): Color 5
+Edge (6, 34): Color 6
+Edge (7, 8): Color 13
+Edge (7, 10): Color 14
+Edge (7, 12): Color 5
+Edge (7, 20): Color 18
+Edge (7, 24): Color 2
+Edge (7, 25): Color 9
+Edge (7, 26): Color 7
+Edge (7, 29): Color 17
+Edge (7, 30): Color 16
+Edge (7, 31): Color 10
+Edge (7, 33): Color 8
+Edge (7, 34): Color 15
+Edge (8, 9): Color 8
+Edge (8, 10): Color 10
+Edge (8, 12): Color 7
+Edge (8, 15): Color 4
+Edge (8, 17): Color 17
+Edge (8, 20): Color 6
+Edge (8, 21): Color 12
+Edge (8, 22): Color 11
+Edge (8, 23): Color 9
+Edge (8, 26): Color 2
+Edge (8, 27): Color 15
+Edge (8, 28): Color 14
+Edge (8, 34): Color 18
+Edge (9, 11): Color 2
+Edge (9, 14): Color 17
+Edge (9, 15): Color 6
+Edge (9, 17): Color 16
+Edge (9, 18): Color 7
+Edge (9, 19): Color 14
+Edge (9, 24): Color 18
+Edge (9, 25): Color 4
+Edge (9, 26): Color 5
+Edge (9, 30): Color 11
+Edge (9, 32): Color 15
+Edge (9, 34): Color 3
+Edge (10, 11): Color 4
+Edge (10, 12): Color 9
+Edge (10, 13): Color 7
+Edge (10, 18): Color 15
+Edge (10, 19): Color 18
+Edge (10, 21): Color 17
+Edge (10, 22): Color 12
+Edge (10, 24): Color 16
+Edge (10, 28): Color 11
+Edge (10, 30): Color 3
+Edge (10, 31): Color 13
+Edge (10, 32): Color 2
+Edge (11, 13): Color 16
+Edge (11, 14): Color 12
+Edge (11, 18): Color 17
+Edge (11, 20): Color 10
+Edge (11, 21): Color 5
+Edge (11, 23): Color 14
+Edge (11, 25): Color 7
+Edge (11, 26): Color 15
+Edge (11, 27): Color 11
+Edge (11, 29): Color 13
+Edge (11, 31): Color 9
+Edge (12, 14): Color 3
+Edge (12, 16): Color 4
+Edge (12, 17): Color 15
+Edge (12, 18): Color 18
+Edge (12, 19): Color 16
+Edge (12, 23): Color 2
+Edge (12, 25): Color 10
+Edge (12, 27): Color 12
+Edge (12, 29): Color 14
+Edge (12, 32): Color 11
+Edge (12, 33): Color 13
+Edge (13, 16): Color 10
+Edge (13, 17): Color 6
+Edge (13, 19): Color 8
+Edge (13, 20): Color 3
+Edge (13, 22): Color 15
+Edge (13, 26): Color 14
+Edge (13, 29): Color 5
+Edge (13, 30): Color 13
+Edge (13, 33): Color 17
+Edge (13, 34): Color 11
+Edge (14, 17): Color 7
+Edge (14, 21): Color 15
+Edge (14, 22): Color 5
+Edge (14, 24): Color 14
+Edge (14, 27): Color 13
+Edge (14, 28): Color 6
+Edge (14, 29): Color 9
+Edge (14, 30): Color 10
+Edge (14, 33): Color 11
+Edge (15, 16): Color 9
+Edge (15, 18): Color 5
+Edge (15, 19): Color 3
+Edge (15, 20): Color 15
+Edge (15, 24): Color 10
+Edge (15, 27): Color 7
+Edge (15, 28): Color 16
+Edge (15, 29): Color 11
+Edge (15, 31): Color 12
+Edge (15, 33): Color 18
+Edge (16, 17): Color 3
+Edge (16, 18): Color 6
+Edge (16, 20): Color 5
+Edge (16, 23): Color 12
+Edge (16, 26): Color 17
+Edge (16, 28): Color 2
+Edge (16, 30): Color 18
+Edge (16, 31): Color 11
+Edge (16, 32): Color 8
+Edge (17, 18): Color 2
+Edge (17, 20): Color 14
+Edge (17, 21): Color 4
+Edge (17, 23): Color 18
+Edge (17, 24): Color 13
+Edge (17, 30): Color 5
+Edge (17, 33): Color 10
+Edge (17, 34): Color 9
+Edge (18, 19): Color 11
+Edge (18, 21): Color 3
+Edge (18, 22): Color 4
+Edge (18, 25): Color 12
+Edge (18, 26): Color 9
+Edge (18, 31): Color 8
+Edge (18, 33): Color 14
+Edge (19, 20): Color 17
+Edge (19, 22): Color 2
+Edge (19, 24): Color 5
+Edge (19, 27): Color 6
+Edge (19, 29): Color 10
+Edge (19, 32): Color 9
+Edge (19, 34): Color 4
+Edge (20, 21): Color 2
+Edge (20, 25): Color 16
+Edge (20, 27): Color 9
+Edge (20, 28): Color 12
+Edge (20, 29): Color 7
+Edge (20, 30): Color 8
+Edge (21, 28): Color 9
+Edge (21, 29): Color 6
+Edge (21, 31): Color 14
+Edge (21, 32): Color 7
+Edge (21, 34): Color 16
+Edge (22, 23): Color 3
+Edge (22, 26): Color 6
+Edge (22, 27): Color 8
+Edge (22, 28): Color 10
+Edge (22, 30): Color 9
+Edge (22, 33): Color 7
+Edge (23, 24): Color 17
+Edge (23, 26): Color 11
+Edge (23, 27): Color 4
+Edge (23, 29): Color 8
+Edge (23, 31): Color 7
+Edge (23, 32): Color 6
+Edge (24, 26): Color 4
+Edge (24, 28): Color 8
+Edge (24, 29): Color 3
+Edge (24, 30): Color 15
+Edge (24, 31): Color 6
+Edge (25, 26): Color 18
+Edge (25, 27): Color 5
+Edge (25, 28): Color 17
+Edge (25, 30): Color 6
+Edge (25, 32): Color 3
+Edge (25, 33): Color 15
+Edge (26, 28): Color 13
+Edge (26, 29): Color 12
+Edge (26, 34): Color 8
+Edge (27, 30): Color 14
+Edge (27, 31): Color 3
+Edge (27, 34): Color 10
+Edge (28, 32): Color 4
+Edge (28, 33): Color 5
+Edge (29, 32): Color 16
+Edge (29, 33): Color 4
+Edge (30, 31): Color 4
+Edge (30, 32): Color 12
+Edge (31, 33): Color 2
+Edge (31, 34): Color 5
+Edge (32, 34): Color 13
+Edge (33, 34): Color 12

@@ -51,12 +51,12 @@ int main(int argc, char *argv[]) {
         triangle = true;
         break;
       default:
-        fprintf(stderr, "Usage: %s [-vet] N k l m\n", argv[0]);
+        fprintf(stderr, "Usage: %s [-vet] N k l m col\n", argv[0]);
         exit(-1);
     }
   }
   if(optind == 1) {
-    fprintf(stderr, "Usage: %s [-vet] N k l m\n", argv[0]);
+    fprintf(stderr, "Usage: %s [-vet] N k l m col \n", argv[0]);
     exit(-1);
   }
 
