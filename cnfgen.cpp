@@ -193,7 +193,7 @@ void equals_k(int k, int counter) {
   }
 
   //Next, we write that for each v_(i, j) that NOT S_(i, j) OR NOT v_(i, j + 1) 
-  for(int j = 1; j < k + 1; j++) {
+  for(int j = 1; j < k; j++) {
     std::cout << "-" << sindex(j, k, counter) << " " << "-" << counter + j + 1 << " " << 0 << std::endl;
   }
 

@@ -60,7 +60,7 @@ class Graph {
     void triangles();
     int  trianglesize();
 
-    friend void verify(Graph*, std::string, std::string, int);
+    friend void verify(Graph*, std::string, std::string, int, bool, bool, bool);
 };
 
 Graph::Graph(int o) {
@@ -188,12 +188,25 @@ int parse() {
   return res;
 }
 
-void verify(Graph *G, std::string sourcename, std::string outname, int col) {
+void verify(Graph *G, std::string sourcename, std::string outname, int col, bool vertex, bool edge, bool triangle) {
   freopen(sourcename.c_str(), "r", stdin);
   freopen(outname.c_str(), "w", stdout);
-
+  
   int vert = G->order();
-  int edge = G->edgesize();
+  int edgesize = G->edgesize();
+
+  int vertc, edgec;
+
+  if(vertex) {
+    vertc = vert;
+  } else {
+    vertc = 0;
+  }
+  if(edge) {
+    edgec = edgesize;
+  } else {
+    edgec = 0;
+  }
 
   char curr[256];
   int vecounter = 0;
@@ -212,19 +225,19 @@ void verify(Graph *G, std::string sourcename, std::string outname, int col) {
     scanf("%s", curr);
     if(std::isdigit(curr[0])) {
       int x = std::stoi(curr);
-      int y = x - vindex(vecounter, col);
-      if(0 <= y && y <= col) {
-        if(vecounter < vert) {
+      int y = x - (2 * vecounter * col);
+      if(1 <= y && y <= col) {
+        if(vecounter < vertc) {
           color_classes[vecounter].push_back(y);
           for(const int j : G->adjlist[vecounter]) {
             std::vector<int>::iterator begin = color_classes[j].begin();
             std::vector<int>::iterator end = color_classes[j].end();
             if(std::find(begin, end, y) != end) throw 1;
           } 
-          std::cout << "Vertex " << vecounter << ": Color " << y + 1<< std::endl;
+          std::cout << "Vertex " << vecounter << ": Color " << y << std::endl;
         }
-        else if (vecounter - vert < edge){
-          int curredge = vecounter - vert;
+        else if (vecounter - vertc < edgec){
+          int curredge = vecounter - vertc;
           std::pair<int, int> cpair = edges[curredge];
           int first = cpair.first;
           int second = cpair.second;
@@ -232,10 +245,10 @@ void verify(Graph *G, std::string sourcename, std::string outname, int col) {
           if(std::find(color_classes[second].begin(), color_classes[second].end(), y) != color_classes[second].end()) throw 1;
           color_classes[first].push_back(y);
           color_classes[second].push_back(y);
-          std::cout << "Edge (" << first << ", " << second << "): Color " << y + 1 << std::endl;
+          std::cout << "Edge (" << first << ", " << second << "): Color " << y << std::endl;
         }
         else {
-          int currtri = vecounter - edge - vert;
+          int currtri = vecounter - edgesize - vertc;
           std::tuple<int, int, int> ctri = triangles[currtri];
           int first  = std::get<0>(ctri);
           int second = std::get<1>(ctri);
@@ -246,7 +259,7 @@ void verify(Graph *G, std::string sourcename, std::string outname, int col) {
           color_classes[first].push_back(y);
           color_classes[second].push_back(y);
           color_classes[third].push_back(y);
-          std::cout << "Triangle (" << first << ", " << second << ", " << third << "): Color " << y + 1 << std::endl;
+          std::cout << "Triangle (" << first << ", " << second << ", " << third << "): Color " << y << std::endl;
         }
         vecounter++;
       }
@@ -348,7 +361,7 @@ int main(int argc, char *argv[]) {
     sourcename = sourcename + "col" + argv[col] + ".out";
     outname = outname + "col" + argv[col] + ".txt";
 
-    verify(j, sourcename, outname, c);
+    verify(j, sourcename, outname, c, vertex, edge, triangle);
     i++;
   }
 }
