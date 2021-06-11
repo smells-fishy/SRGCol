@@ -181,7 +181,6 @@ inline int sindex(int j, int k, int counter) {
 */
 
 void equals_k(int k, int counter) {
-
   //Abysmal bandaid: we encode at least one
   for(int j = 1; j < k + 1; j++) {
     std::cout << counter + j << " ";
@@ -333,6 +332,10 @@ void col(Graph G, int k, bool vertex, bool edge, bool triangle) {
   }
 }
 
+void break_symmetry () {
+  
+}
+
 int parse() {
 
   //Initial parsing of the showg output to find the graph order
@@ -427,9 +430,9 @@ int main(int argc, char *argv[]) {
     i->triangles();
 
     std::string outname = argv[optind];
-    outname.erase(outname.find("SRGDatabase/"), std::string("SRGDatabase/").length());
+    outname.erase(0, outname.find('/'));
     outname = "CNF/" + outname;
-    outname.erase(outname.find("g6") - 1, outname.length());
+    outname.erase(outname.find("."), outname.length());
     outname.append("G");
     outname.append(std::to_string(count));
     if(vertex) {

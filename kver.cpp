@@ -1,3 +1,9 @@
+/*
+*
+*   Special program just to bash out complete graph verification
+*
+*/
+
 #include <algorithm>
 #include <cctype>
 #include <cassert>
@@ -221,7 +227,7 @@ void verify(Graph *G, std::string sourcename, std::string outname, int col) {
             std::vector<int>::iterator end = color_classes[j].end();
             if(std::find(begin, end, y) != end) throw 1;
           } 
-          std::cout << "Vertex " << vecounter << ": Color " << y + 1<< std::endl;
+          std::cout << "Vertex " << vecounter << ": Color " << y + 1 << std::endl;
         }
         else if (vecounter - vert < edge){
           int curredge = vecounter - vert;
@@ -276,23 +282,19 @@ int main(int argc, char *argv[]) {
         triangle = true;
         break;
       default:
-        fprintf(stderr, "Usage: %s [-vet] N k l m col\n", argv[0]);
+        fprintf(stderr, "Usage: %s [-vet] [filename] [col]\n", argv[0]);
         exit(-1);
     }
   }
   if(optind == 1) {
-    fprintf(stderr, "Usage: %s [-vet] N k l m col\n", argv[0]);
+    fprintf(stderr, "Usage: %s [-vet] [filename] [col]\n", argv[0]);
     exit(-1);
   }
 
-  int N = optind;
-  int k = optind + 1;
-  int l = optind + 2;
-  int m = optind + 3;
-  int col = optind + 4;
+  int col = optind + 1;
   int c = std::stoi(argv[col]);
 
-  std::string graphsource = "SRGDatabase/sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] + ".g6.txt";
+  std::string graphsource = argv[optind];
 
   freopen(graphsource.c_str(), "r", stdin);
 
@@ -327,11 +329,13 @@ int main(int argc, char *argv[]) {
   int i = 1;
 
   for(Graph *j : graphs) {
-    std::string sourcename = "CNF/sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] 
-      + "G" + std::to_string(i);
+    std::string sourcename = graphsource;
+    sourcename.erase(0, sourcename.find('/'));
+    sourcename.erase(sourcename.find("."), sourcename.length());
+    sourcename.append("G");
+    sourcename.append(std::to_string(i));
 
-    std::string outname = "CNF/sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] 
-      + "G" + std::to_string(i);
+    std::string outname = sourcename;
 
     if(vertex) {
       sourcename.append("v");
@@ -345,8 +349,8 @@ int main(int argc, char *argv[]) {
       sourcename.append("t");
       outname.append("e");
     }
-    sourcename = sourcename + "col" + argv[col] + ".out";
-    outname = outname + "col" + argv[col] + ".txt";
+    sourcename = "CNF/" + sourcename + "col" + argv[col] + ".out";
+    outname = "CNF/" + outname + "col" + argv[col] + ".txt";
 
     verify(j, sourcename, outname, c);
     i++;
