@@ -1,0 +1,124 @@
+Graph 1
+Triangles: 10962
+
+Graph 2
+Triangles: 10962
+
+Graph 3
+Triangles: 10962
+
+Graph 4
+Triangles: 10962
+
+Graph 5
+Triangles: 10962
+
+Graph 6
+Triangles: 10962
+
+Graph 7
+Triangles: 10962
+
+Graph 8
+Triangles: 10962
+
+Graph 9
+Triangles: 10962
+
+Graph 10
+Triangles: 10962
+
+Graph 11
+Triangles: 10962
+
+Graph 12
+Triangles: 10962
+
+Graph 13
+Triangles: 10962
+
+Graph 14
+Triangles: 10962
+
+Graph 15
+Triangles: 10962
+
+Graph 16
+Triangles: 10962
+
+Graph 17
+Triangles: 10962
+
+Graph 18
+Triangles: 10962
+
+Graph 19
+Triangles: 10962
+
+Graph 20
+Triangles: 10962
+
+Graph 21
+Triangles: 10962
+
+Graph 22
+Triangles: 10962
+
+Graph 23
+Triangles: 10962
+
+Graph 24
+Triangles: 10962
+
+Graph 25
+Triangles: 10962
+
+Graph 26
+Triangles: 10962
+
+Graph 27
+Triangles: 10962
+
+Graph 28
+Triangles: 10962
+
+Graph 29
+Triangles: 10962
+
+Graph 30
+Triangles: 10962
+
+Graph 31
+Triangles: 10962
+
+Graph 32
+Triangles: 10962
+
+Graph 33
+Triangles: 10962
+
+Graph 34
+Triangles: 10962
+
+Graph 35
+Triangles: 10962
+
+Graph 36
+Triangles: 10962
+
+Graph 37
+Triangles: 10962
+
+Graph 38
+Triangles: 10962
+
+Graph 39
+Triangles: 10962
+
+Graph 40
+Triangles: 10962
+
+Graph 41
+Triangles: 10962
+
+{10962}

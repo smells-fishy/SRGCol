@@ -1,0 +1,46 @@
+Graph 1
+Triangles: 5750
+
+Graph 2
+Triangles: 5750
+
+Graph 3
+Triangles: 5750
+
+Graph 4
+Triangles: 5750
+
+Graph 5
+Triangles: 5750
+
+Graph 6
+Triangles: 5750
+
+Graph 7
+Triangles: 5750
+
+Graph 8
+Triangles: 5750
+
+Graph 9
+Triangles: 5750
+
+Graph 10
+Triangles: 5750
+
+Graph 11
+Triangles: 5750
+
+Graph 12
+Triangles: 5750
+
+Graph 13
+Triangles: 5750
+
+Graph 14
+Triangles: 5750
+
+Graph 15
+Triangles: 5750
+
+{5750}

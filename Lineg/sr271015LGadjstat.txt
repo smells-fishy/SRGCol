@@ -1,0 +1,4 @@
+Graph 1
+Triangles: 3285
+
+{3285}

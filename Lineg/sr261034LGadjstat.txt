@@ -1,0 +1,31 @@
+Graph 1
+Triangles: 3250
+
+Graph 2
+Triangles: 3250
+
+Graph 3
+Triangles: 3250
+
+Graph 4
+Triangles: 3250
+
+Graph 5
+Triangles: 3250
+
+Graph 6
+Triangles: 3250
+
+Graph 7
+Triangles: 3250
+
+Graph 8
+Triangles: 3250
+
+Graph 9
+Triangles: 3250
+
+Graph 10
+Triangles: 3250
+
+{3250}

@@ -1,0 +1,541 @@
+Graph 1
+Triangles: 13440
+
+Graph 2
+Triangles: 13440
+
+Graph 3
+Triangles: 13440
+
+Graph 4
+Triangles: 13440
+
+Graph 5
+Triangles: 13440
+
+Graph 6
+Triangles: 13440
+
+Graph 7
+Triangles: 13440
+
+Graph 8
+Triangles: 13440
+
+Graph 9
+Triangles: 13440
+
+Graph 10
+Triangles: 13440
+
+Graph 11
+Triangles: 13440
+
+Graph 12
+Triangles: 13440
+
+Graph 13
+Triangles: 13440
+
+Graph 14
+Triangles: 13440
+
+Graph 15
+Triangles: 13440
+
+Graph 16
+Triangles: 13440
+
+Graph 17
+Triangles: 13440
+
+Graph 18
+Triangles: 13440
+
+Graph 19
+Triangles: 13440
+
+Graph 20
+Triangles: 13440
+
+Graph 21
+Triangles: 13440
+
+Graph 22
+Triangles: 13440
+
+Graph 23
+Triangles: 13440
+
+Graph 24
+Triangles: 13440
+
+Graph 25
+Triangles: 13440
+
+Graph 26
+Triangles: 13440
+
+Graph 27
+Triangles: 13440
+
+Graph 28
+Triangles: 13440
+
+Graph 29
+Triangles: 13440
+
+Graph 30
+Triangles: 13440
+
+Graph 31
+Triangles: 13440
+
+Graph 32
+Triangles: 13440
+
+Graph 33
+Triangles: 13440
+
+Graph 34
+Triangles: 13440
+
+Graph 35
+Triangles: 13440
+
+Graph 36
+Triangles: 13440
+
+Graph 37
+Triangles: 13440
+
+Graph 38
+Triangles: 13440
+
+Graph 39
+Triangles: 13440
+
+Graph 40
+Triangles: 13440
+
+Graph 41
+Triangles: 13440
+
+Graph 42
+Triangles: 13440
+
+Graph 43
+Triangles: 13440
+
+Graph 44
+Triangles: 13440
+
+Graph 45
+Triangles: 13440
+
+Graph 46
+Triangles: 13440
+
+Graph 47
+Triangles: 13440
+
+Graph 48
+Triangles: 13440
+
+Graph 49
+Triangles: 13440
+
+Graph 50
+Triangles: 13440
+
+Graph 51
+Triangles: 13440
+
+Graph 52
+Triangles: 13440
+
+Graph 53
+Triangles: 13440
+
+Graph 54
+Triangles: 13440
+
+Graph 55
+Triangles: 13440
+
+Graph 56
+Triangles: 13440
+
+Graph 57
+Triangles: 13440
+
+Graph 58
+Triangles: 13440
+
+Graph 59
+Triangles: 13440
+
+Graph 60
+Triangles: 13440
+
+Graph 61
+Triangles: 13440
+
+Graph 62
+Triangles: 13440
+
+Graph 63
+Triangles: 13440
+
+Graph 64
+Triangles: 13440
+
+Graph 65
+Triangles: 13440
+
+Graph 66
+Triangles: 13440
+
+Graph 67
+Triangles: 13440
+
+Graph 68
+Triangles: 13440
+
+Graph 69
+Triangles: 13440
+
+Graph 70
+Triangles: 13440
+
+Graph 71
+Triangles: 13440
+
+Graph 72
+Triangles: 13440
+
+Graph 73
+Triangles: 13440
+
+Graph 74
+Triangles: 13440
+
+Graph 75
+Triangles: 13440
+
+Graph 76
+Triangles: 13440
+
+Graph 77
+Triangles: 13440
+
+Graph 78
+Triangles: 13440
+
+Graph 79
+Triangles: 13440
+
+Graph 80
+Triangles: 13440
+
+Graph 81
+Triangles: 13440
+
+Graph 82
+Triangles: 13440
+
+Graph 83
+Triangles: 13440
+
+Graph 84
+Triangles: 13440
+
+Graph 85
+Triangles: 13440
+
+Graph 86
+Triangles: 13440
+
+Graph 87
+Triangles: 13440
+
+Graph 88
+Triangles: 13440
+
+Graph 89
+Triangles: 13440
+
+Graph 90
+Triangles: 13440
+
+Graph 91
+Triangles: 13440
+
+Graph 92
+Triangles: 13440
+
+Graph 93
+Triangles: 13440
+
+Graph 94
+Triangles: 13440
+
+Graph 95
+Triangles: 13440
+
+Graph 96
+Triangles: 13440
+
+Graph 97
+Triangles: 13440
+
+Graph 98
+Triangles: 13440
+
+Graph 99
+Triangles: 13440
+
+Graph 100
+Triangles: 13440
+
+Graph 101
+Triangles: 13440
+
+Graph 102
+Triangles: 13440
+
+Graph 103
+Triangles: 13440
+
+Graph 104
+Triangles: 13440
+
+Graph 105
+Triangles: 13440
+
+Graph 106
+Triangles: 13440
+
+Graph 107
+Triangles: 13440
+
+Graph 108
+Triangles: 13440
+
+Graph 109
+Triangles: 13440
+
+Graph 110
+Triangles: 13440
+
+Graph 111
+Triangles: 13440
+
+Graph 112
+Triangles: 13440
+
+Graph 113
+Triangles: 13440
+
+Graph 114
+Triangles: 13440
+
+Graph 115
+Triangles: 13440
+
+Graph 116
+Triangles: 13440
+
+Graph 117
+Triangles: 13440
+
+Graph 118
+Triangles: 13440
+
+Graph 119
+Triangles: 13440
+
+Graph 120
+Triangles: 13440
+
+Graph 121
+Triangles: 13440
+
+Graph 122
+Triangles: 13440
+
+Graph 123
+Triangles: 13440
+
+Graph 124
+Triangles: 13440
+
+Graph 125
+Triangles: 13440
+
+Graph 126
+Triangles: 13440
+
+Graph 127
+Triangles: 13440
+
+Graph 128
+Triangles: 13440
+
+Graph 129
+Triangles: 13440
+
+Graph 130
+Triangles: 13440
+
+Graph 131
+Triangles: 13440
+
+Graph 132
+Triangles: 13440
+
+Graph 133
+Triangles: 13440
+
+Graph 134
+Triangles: 13440
+
+Graph 135
+Triangles: 13440
+
+Graph 136
+Triangles: 13440
+
+Graph 137
+Triangles: 13440
+
+Graph 138
+Triangles: 13440
+
+Graph 139
+Triangles: 13440
+
+Graph 140
+Triangles: 13440
+
+Graph 141
+Triangles: 13440
+
+Graph 142
+Triangles: 13440
+
+Graph 143
+Triangles: 13440
+
+Graph 144
+Triangles: 13440
+
+Graph 145
+Triangles: 13440
+
+Graph 146
+Triangles: 13440
+
+Graph 147
+Triangles: 13440
+
+Graph 148
+Triangles: 13440
+
+Graph 149
+Triangles: 13440
+
+Graph 150
+Triangles: 13440
+
+Graph 151
+Triangles: 13440
+
+Graph 152
+Triangles: 13440
+
+Graph 153
+Triangles: 13440
+
+Graph 154
+Triangles: 13440
+
+Graph 155
+Triangles: 13440
+
+Graph 156
+Triangles: 13440
+
+Graph 157
+Triangles: 13440
+
+Graph 158
+Triangles: 13440
+
+Graph 159
+Triangles: 13440
+
+Graph 160
+Triangles: 13440
+
+Graph 161
+Triangles: 13440
+
+Graph 162
+Triangles: 13440
+
+Graph 163
+Triangles: 13440
+
+Graph 164
+Triangles: 13440
+
+Graph 165
+Triangles: 13440
+
+Graph 166
+Triangles: 13440
+
+Graph 167
+Triangles: 13440
+
+Graph 168
+Triangles: 13440
+
+Graph 169
+Triangles: 13440
+
+Graph 170
+Triangles: 13440
+
+Graph 171
+Triangles: 13440
+
+Graph 172
+Triangles: 13440
+
+Graph 173
+Triangles: 13440
+
+Graph 174
+Triangles: 13440
+
+Graph 175
+Triangles: 13440
+
+Graph 176
+Triangles: 13440
+
+Graph 177
+Triangles: 13440
+
+Graph 178
+Triangles: 13440
+
+Graph 179
+Triangles: 13440
+
+Graph 180
+Triangles: 13440
+
+{13440}

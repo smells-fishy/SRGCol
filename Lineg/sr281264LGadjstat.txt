@@ -1,0 +1,13 @@
+Graph 1
+Triangles: 6496
+
+Graph 2
+Triangles: 6496
+
+Graph 3
+Triangles: 6496
+
+Graph 4
+Triangles: 6496
+
+{6496}
