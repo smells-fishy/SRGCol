@@ -2,13 +2,20 @@ import sys
 from sage.graphs.graph_list import from_graph6
 from sage.graphs.line_graph import line_graph
 
+def amNoBracket (am, size):
+  for i in range(0, size):
+    for j in range(0, size):
+      print(str(am[i][j]), end = ' ', flush = True)
+    print(' ')
+  print(' ')
+
 def gulg(filename):
   with open(filename, 'r') as f:
     L = f.readlines()
   f.close()
   l = from_graph6(L)
   pos = filename.find('/')
-  outname = "Lineg" + filename[pos:(len(filename) - 3)] + "gulg .txt"
+  outname = "Lineg" + filename[pos:(len(filename) - 3)] + "gulg.txt"
   sys.stdout = open(outname, 'w')
   count = 1
   for G in l:
@@ -26,4 +33,4 @@ def gulg(filename):
           else:
             if (vert[j][1] == vert[i][1][0] or vert[j][1] == vert[i][1][1]):
               GuLg.add_edge(vert[i], vert[j])
-    print(str(GuLg.adjacency_matrix()), flush = True)
+    amNoBracket(GuLg.adjacency_matrix(), upper)
