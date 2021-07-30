@@ -66,10 +66,10 @@ int main(int argc, char *argv[]) {
   int m = optind + 3;
   int col = optind + 4;
 
-  std::string searchname = "CNF/sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] +
+  std::string searchname = "sr" + std::string(argv[N]) + argv[k] + argv[l] + argv[m] +
       + "*" + argv[col] + ".cnf";
 
-  int c = exec(("ls -dq " + searchname + " | wc -l").c_str());
+  int c = exec(("find CNF/ -name " + searchname + " | wc -l").c_str());
 
   int sat = 0;
 

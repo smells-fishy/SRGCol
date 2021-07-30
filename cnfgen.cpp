@@ -36,19 +36,39 @@ struct tupl_cmp {
   }
 };
 
+class AdjMatrix {
+  private:
+    int order_v;
+  public:
+    AdjMatrix(int);
+    ~AdjMatrix();
+    int *adjMatrix;
+    int index(int, int);
+};
+
+AdjMatrix::AdjMatrix(int order) {
+  order_v = order;
+  adjMatrix = new int[order * order];
+}
+
+inline int AdjMatrix::index(int row, int column) {
+  return row * (this->order_v) + column;
+}
+
 class Graph {
   private:
-    int  order_v;
+    int order_v;
     std::list<int> *adjlist;
     std::set<std::pair<int, int>, pair_cmp> edge;
     std::set<std::tuple<int, int, int>, tupl_cmp> triangle;
   public:
     Graph(int);
     ~Graph();
-    void adj_insert(int, int);
-    void color(int ,int);
+    void adjlist_insert(int, int);
+    std::vector<int> clique();
     void edges();
     int  edgesize();
+    bool isClique(std::vector<int> vec);
     inline int order();
     void print_adj();
     void print_edges();
@@ -67,7 +87,7 @@ Graph::~Graph() {
   delete [] adjlist;
 }
 
-void Graph::adj_insert(int ind, int d) {
+void Graph::adjlist_insert(int ind, int d) {
   adjlist[ind].insert(adjlist[ind].end(), d);
 #if DEBUG == 1
   std::streambuf *coutbuf = std::cout.rdbuf(); 
@@ -143,7 +163,7 @@ inline int Graph::order() {
 
 /*
 *
-*   Helper fucntions which allows us to cleanly calculate the variable "number" corresponding
+*   Helper functions which allows us to cleanly calculate the variable "number" corresponding
 *   to certain structures
 *
 */
@@ -280,9 +300,9 @@ void col(Graph G, int k, bool vertex, bool edge, bool triangle) {
       int second = std::get<1>(t);
       int third  = std::get<2>(t);
       for(int j = 0; j < k; j++) {
-        std::cout << "-" << vindex(first, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-        std::cout << "-" << vindex(second, k) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-        std::cout << "-" << vindex(third, k) + j  << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+        std::cout << "-" << vindex(first, k) + j  << " " << "-" << tindex(i, k, vert, edgesize) + j << " " << 0 << std::endl;
+        std::cout << "-" << vindex(second, k) + j << " " << "-" << tindex(i, k, vert, edgesize) + j << " " << 0 << std::endl;
+        std::cout << "-" << vindex(third, k) + j  << " " << "-" << tindex(i, k, vert, edgesize) + j << " " << 0 << std::endl;
       }
     }
   }
@@ -301,9 +321,9 @@ void col(Graph G, int k, bool vertex, bool edge, bool triangle) {
       int ind2 = std::find(edges.begin(), edges.end(), e2) - edges.begin();
       int ind3 = std::find(edges.begin(), edges.end(), e3) - edges.begin();
       for(int j = 0; j < k; j++) {
-        std::cout << "-" << eindex(ind1, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-        std::cout << "-" << eindex(ind2, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
-        std::cout << "-" << eindex(ind3, k, vert) + j << " " << "-" << tindex(i, k, vert, edge) + j << " " << 0 << std::endl;
+        std::cout << "-" << eindex(ind1, k, vert) + j << " " << "-" << tindex(i, k, vert, edgesize) + j << " " << 0 << std::endl;
+        std::cout << "-" << eindex(ind2, k, vert) + j << " " << "-" << tindex(i, k, vert, edgesize) + j << " " << 0 << std::endl;
+        std::cout << "-" << eindex(ind3, k, vert) + j << " " << "-" << tindex(i, k, vert, edgesize) + j << " " << 0 << std::endl;
       }
     }
   }
@@ -324,7 +344,7 @@ void col(Graph G, int k, bool vertex, bool edge, bool triangle) {
         if(t1f == t2f || t1s == t2s || t1t == t2t || t1s == t2f || t1t == t1s 
           || t1f == t2t || t1t == t2f || t1f == t2s || t1s == t2t) {
           for(int m = 0; m < k; m++) {
-            std::cout << "-" << tindex(i, k, vert, edge) + m << " " << "-" << tindex(j, k, vert, edge) + m << " " << 0 << std::endl;
+            std::cout << "-" << tindex(i, k, vert, edgesize) + m << " " << "-" << tindex(j, k, vert, edgesize) + m << " " << 0 << std::endl;
           }
         }
       }
@@ -332,8 +352,11 @@ void col(Graph G, int k, bool vertex, bool edge, bool triangle) {
   }
 }
 
-void break_symmetry () {
-  
+void break_symmetry (Graph *G) {
+  std::vector<int> clique = G->clique();
+  if(clique[0] == 0 && clique[1] == 0 && clique[2] == 0 && clique[3] == 0) {
+    throw 1;
+  }
 }
 
 int parse() {
@@ -370,11 +393,11 @@ int main(int argc, char *argv[]) {
   *   generate different combinations of colorings
   */
 
-  bool vertex, edge, triangle;
+  bool breaksym, vertex, edge, triangle;
 
   //Thanks to StackOverflow
   int opt;
-  while((opt = getopt(argc, argv, "vet")) != -1) {
+  while((opt = getopt(argc, argv, "vetb")) != -1) {
     switch(opt) {
       case 'v':
         vertex = true;
@@ -385,8 +408,11 @@ int main(int argc, char *argv[]) {
       case 't':
         triangle = true;
         break;
+      case 'b':
+        breaksym = true;
+        break;
       default:
-        fprintf(stderr, "Usage: %s [-vet] [file] [colors]\n", argv[0]);
+        fprintf(stderr, "Usage: %s [-vetb] [file] [colors]\n", argv[0]);
         exit(-1);
     }
   }
@@ -411,7 +437,7 @@ int main(int argc, char *argv[]) {
       for(int j = 0; j < order; j++) {
         int x;
         std::cin >> x;
-        if(x) graph->adj_insert(i, j);
+        if(x) graph->adjlist_insert(i, j);
       }
     }
 #if DDEBUG == 1
@@ -444,6 +470,9 @@ int main(int argc, char *argv[]) {
     if(triangle) {
       outname.append("t");
     }
+    if(breaksym) {
+      outname.append("b");
+    } 
     outname.append("col");
     outname.append(argv[optind + 1]);
     outname.append(".cnf");
