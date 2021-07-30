@@ -1,0 +1,4 @@
+Graph 1
+Triangles: 1500
+
+{1500}

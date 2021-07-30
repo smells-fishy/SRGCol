@@ -1,0 +1,85 @@
+Graph 1
+Triangles: 8960
+
+Graph 2
+Triangles: 8960
+
+Graph 3
+Triangles: 8960
+
+Graph 4
+Triangles: 8960
+
+Graph 5
+Triangles: 8960
+
+Graph 6
+Triangles: 8960
+
+Graph 7
+Triangles: 8960
+
+Graph 8
+Triangles: 8960
+
+Graph 9
+Triangles: 8960
+
+Graph 10
+Triangles: 8960
+
+Graph 11
+Triangles: 8960
+
+Graph 12
+Triangles: 8960
+
+Graph 13
+Triangles: 8960
+
+Graph 14
+Triangles: 8960
+
+Graph 15
+Triangles: 8960
+
+Graph 16
+Triangles: 8960
+
+Graph 17
+Triangles: 8960
+
+Graph 18
+Triangles: 8960
+
+Graph 19
+Triangles: 8960
+
+Graph 20
+Triangles: 8960
+
+Graph 21
+Triangles: 8960
+
+Graph 22
+Triangles: 8960
+
+Graph 23
+Triangles: 8960
+
+Graph 24
+Triangles: 8960
+
+Graph 25
+Triangles: 8960
+
+Graph 26
+Triangles: 8960
+
+Graph 27
+Triangles: 8960
+
+Graph 28
+Triangles: 8960
+
+{8960}

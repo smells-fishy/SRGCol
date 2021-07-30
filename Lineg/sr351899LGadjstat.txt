@@ -1,0 +1,682 @@
+Graph 1
+Triangles: 29505
+
+Graph 2
+Triangles: 29505
+
+Graph 3
+Triangles: 29505
+
+Graph 4
+Triangles: 29505
+
+Graph 5
+Triangles: 29505
+
+Graph 6
+Triangles: 29505
+
+Graph 7
+Triangles: 29505
+
+Graph 8
+Triangles: 29505
+
+Graph 9
+Triangles: 29505
+
+Graph 10
+Triangles: 29505
+
+Graph 11
+Triangles: 29505
+
+Graph 12
+Triangles: 29505
+
+Graph 13
+Triangles: 29505
+
+Graph 14
+Triangles: 29505
+
+Graph 15
+Triangles: 29505
+
+Graph 16
+Triangles: 29505
+
+Graph 17
+Triangles: 29505
+
+Graph 18
+Triangles: 29505
+
+Graph 19
+Triangles: 29505
+
+Graph 20
+Triangles: 29505
+
+Graph 21
+Triangles: 29505
+
+Graph 22
+Triangles: 29505
+
+Graph 23
+Triangles: 29505
+
+Graph 24
+Triangles: 29505
+
+Graph 25
+Triangles: 29505
+
+Graph 26
+Triangles: 29505
+
+Graph 27
+Triangles: 29505
+
+Graph 28
+Triangles: 29505
+
+Graph 29
+Triangles: 29505
+
+Graph 30
+Triangles: 29505
+
+Graph 31
+Triangles: 29505
+
+Graph 32
+Triangles: 29505
+
+Graph 33
+Triangles: 29505
+
+Graph 34
+Triangles: 29505
+
+Graph 35
+Triangles: 29505
+
+Graph 36
+Triangles: 29505
+
+Graph 37
+Triangles: 29505
+
+Graph 38
+Triangles: 29505
+
+Graph 39
+Triangles: 29505
+
+Graph 40
+Triangles: 29505
+
+Graph 41
+Triangles: 29505
+
+Graph 42
+Triangles: 29505
+
+Graph 43
+Triangles: 29505
+
+Graph 44
+Triangles: 29505
+
+Graph 45
+Triangles: 29505
+
+Graph 46
+Triangles: 29505
+
+Graph 47
+Triangles: 29505
+
+Graph 48
+Triangles: 29505
+
+Graph 49
+Triangles: 29505
+
+Graph 50
+Triangles: 29505
+
+Graph 51
+Triangles: 29505
+
+Graph 52
+Triangles: 29505
+
+Graph 53
+Triangles: 29505
+
+Graph 54
+Triangles: 29505
+
+Graph 55
+Triangles: 29505
+
+Graph 56
+Triangles: 29505
+
+Graph 57
+Triangles: 29505
+
+Graph 58
+Triangles: 29505
+
+Graph 59
+Triangles: 29505
+
+Graph 60
+Triangles: 29505
+
+Graph 61
+Triangles: 29505
+
+Graph 62
+Triangles: 29505
+
+Graph 63
+Triangles: 29505
+
+Graph 64
+Triangles: 29505
+
+Graph 65
+Triangles: 29505
+
+Graph 66
+Triangles: 29505
+
+Graph 67
+Triangles: 29505
+
+Graph 68
+Triangles: 29505
+
+Graph 69
+Triangles: 29505
+
+Graph 70
+Triangles: 29505
+
+Graph 71
+Triangles: 29505
+
+Graph 72
+Triangles: 29505
+
+Graph 73
+Triangles: 29505
+
+Graph 74
+Triangles: 29505
+
+Graph 75
+Triangles: 29505
+
+Graph 76
+Triangles: 29505
+
+Graph 77
+Triangles: 29505
+
+Graph 78
+Triangles: 29505
+
+Graph 79
+Triangles: 29505
+
+Graph 80
+Triangles: 29505
+
+Graph 81
+Triangles: 29505
+
+Graph 82
+Triangles: 29505
+
+Graph 83
+Triangles: 29505
+
+Graph 84
+Triangles: 29505
+
+Graph 85
+Triangles: 29505
+
+Graph 86
+Triangles: 29505
+
+Graph 87
+Triangles: 29505
+
+Graph 88
+Triangles: 29505
+
+Graph 89
+Triangles: 29505
+
+Graph 90
+Triangles: 29505
+
+Graph 91
+Triangles: 29505
+
+Graph 92
+Triangles: 29505
+
+Graph 93
+Triangles: 29505
+
+Graph 94
+Triangles: 29505
+
+Graph 95
+Triangles: 29505
+
+Graph 96
+Triangles: 29505
+
+Graph 97
+Triangles: 29505
+
+Graph 98
+Triangles: 29505
+
+Graph 99
+Triangles: 29505
+
+Graph 100
+Triangles: 29505
+
+Graph 101
+Triangles: 29505
+
+Graph 102
+Triangles: 29505
+
+Graph 103
+Triangles: 29505
+
+Graph 104
+Triangles: 29505
+
+Graph 105
+Triangles: 29505
+
+Graph 106
+Triangles: 29505
+
+Graph 107
+Triangles: 29505
+
+Graph 108
+Triangles: 29505
+
+Graph 109
+Triangles: 29505
+
+Graph 110
+Triangles: 29505
+
+Graph 111
+Triangles: 29505
+
+Graph 112
+Triangles: 29505
+
+Graph 113
+Triangles: 29505
+
+Graph 114
+Triangles: 29505
+
+Graph 115
+Triangles: 29505
+
+Graph 116
+Triangles: 29505
+
+Graph 117
+Triangles: 29505
+
+Graph 118
+Triangles: 29505
+
+Graph 119
+Triangles: 29505
+
+Graph 120
+Triangles: 29505
+
+Graph 121
+Triangles: 29505
+
+Graph 122
+Triangles: 29505
+
+Graph 123
+Triangles: 29505
+
+Graph 124
+Triangles: 29505
+
+Graph 125
+Triangles: 29505
+
+Graph 126
+Triangles: 29505
+
+Graph 127
+Triangles: 29505
+
+Graph 128
+Triangles: 29505
+
+Graph 129
+Triangles: 29505
+
+Graph 130
+Triangles: 29505
+
+Graph 131
+Triangles: 29505
+
+Graph 132
+Triangles: 29505
+
+Graph 133
+Triangles: 29505
+
+Graph 134
+Triangles: 29505
+
+Graph 135
+Triangles: 29505
+
+Graph 136
+Triangles: 29505
+
+Graph 137
+Triangles: 29505
+
+Graph 138
+Triangles: 29505
+
+Graph 139
+Triangles: 29505
+
+Graph 140
+Triangles: 29505
+
+Graph 141
+Triangles: 29505
+
+Graph 142
+Triangles: 29505
+
+Graph 143
+Triangles: 29505
+
+Graph 144
+Triangles: 29505
+
+Graph 145
+Triangles: 29505
+
+Graph 146
+Triangles: 29505
+
+Graph 147
+Triangles: 29505
+
+Graph 148
+Triangles: 29505
+
+Graph 149
+Triangles: 29505
+
+Graph 150
+Triangles: 29505
+
+Graph 151
+Triangles: 29505
+
+Graph 152
+Triangles: 29505
+
+Graph 153
+Triangles: 29505
+
+Graph 154
+Triangles: 29505
+
+Graph 155
+Triangles: 29505
+
+Graph 156
+Triangles: 29505
+
+Graph 157
+Triangles: 29505
+
+Graph 158
+Triangles: 29505
+
+Graph 159
+Triangles: 29505
+
+Graph 160
+Triangles: 29505
+
+Graph 161
+Triangles: 29505
+
+Graph 162
+Triangles: 29505
+
+Graph 163
+Triangles: 29505
+
+Graph 164
+Triangles: 29505
+
+Graph 165
+Triangles: 29505
+
+Graph 166
+Triangles: 29505
+
+Graph 167
+Triangles: 29505
+
+Graph 168
+Triangles: 29505
+
+Graph 169
+Triangles: 29505
+
+Graph 170
+Triangles: 29505
+
+Graph 171
+Triangles: 29505
+
+Graph 172
+Triangles: 29505
+
+Graph 173
+Triangles: 29505
+
+Graph 174
+Triangles: 29505
+
+Graph 175
+Triangles: 29505
+
+Graph 176
+Triangles: 29505
+
+Graph 177
+Triangles: 29505
+
+Graph 178
+Triangles: 29505
+
+Graph 179
+Triangles: 29505
+
+Graph 180
+Triangles: 29505
+
+Graph 181
+Triangles: 29505
+
+Graph 182
+Triangles: 29505
+
+Graph 183
+Triangles: 29505
+
+Graph 184
+Triangles: 29505
+
+Graph 185
+Triangles: 29505
+
+Graph 186
+Triangles: 29505
+
+Graph 187
+Triangles: 29505
+
+Graph 188
+Triangles: 29505
+
+Graph 189
+Triangles: 29505
+
+Graph 190
+Triangles: 29505
+
+Graph 191
+Triangles: 29505
+
+Graph 192
+Triangles: 29505
+
+Graph 193
+Triangles: 29505
+
+Graph 194
+Triangles: 29505
+
+Graph 195
+Triangles: 29505
+
+Graph 196
+Triangles: 29505
+
+Graph 197
+Triangles: 29505
+
+Graph 198
+Triangles: 29505
+
+Graph 199
+Triangles: 29505
+
+Graph 200
+Triangles: 29505
+
+Graph 201
+Triangles: 29505
+
+Graph 202
+Triangles: 29505
+
+Graph 203
+Triangles: 29505
+
+Graph 204
+Triangles: 29505
+
+Graph 205
+Triangles: 29505
+
+Graph 206
+Triangles: 29505
+
+Graph 207
+Triangles: 29505
+
+Graph 208
+Triangles: 29505
+
+Graph 209
+Triangles: 29505
+
+Graph 210
+Triangles: 29505
+
+Graph 211
+Triangles: 29505
+
+Graph 212
+Triangles: 29505
+
+Graph 213
+Triangles: 29505
+
+Graph 214
+Triangles: 29505
+
+Graph 215
+Triangles: 29505
+
+Graph 216
+Triangles: 29505
+
+Graph 217
+Triangles: 29505
+
+Graph 218
+Triangles: 29505
+
+Graph 219
+Triangles: 29505
+
+Graph 220
+Triangles: 29505
+
+Graph 221
+Triangles: 29505
+
+Graph 222
+Triangles: 29505
+
+Graph 223
+Triangles: 29505
+
+Graph 224
+Triangles: 29505
+
+Graph 225
+Triangles: 29505
+
+Graph 226
+Triangles: 29505
+
+Graph 227
+Triangles: 29505
+
+{29505}
