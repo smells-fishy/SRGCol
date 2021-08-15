@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <cctype>
 #include <cstdio>
 #include <cstdlib>
 #include <forward_list>
@@ -65,10 +66,8 @@ class Graph {
     Graph(int);
     ~Graph();
     void adjlist_insert(int, int);
-    std::vector<int> clique();
     void edges();
     int  edgesize();
-    bool isClique(std::vector<int> vec);
     inline int order();
     void print_adj();
     void print_edges();
@@ -352,13 +351,6 @@ void col(Graph G, int k, bool vertex, bool edge, bool triangle) {
   }
 }
 
-void break_symmetry (Graph *G) {
-  std::vector<int> clique = G->clique();
-  if(clique[0] == 0 && clique[1] == 0 && clique[2] == 0 && clique[3] == 0) {
-    throw 1;
-  }
-}
-
 int parse() {
 
   //Initial parsing of the showg output to find the graph order
@@ -366,15 +358,11 @@ int parse() {
   std::getline(std::cin, first);
   std::getline(std::cin, first);
 
-  int res = 0;
-  int base = 1;
-  int n = first.length() - 2;
-  while(n > 0 && first[n] - '0' >= 0 && '9' - first[n] >= 0) {
-    int x = first[n] - 48;
-    res += x * base;
-    base *= 10;
-    n--;
-  }
+  size_t num = first.find_last_not_of("0123456789");
+
+  std::string ord = first.substr(num, std::string::npos);
+  
+  int res = std::stoi(ord);
 
   return res;
 
@@ -412,22 +400,23 @@ int main(int argc, char *argv[]) {
         breaksym = true;
         break;
       default:
-        fprintf(stderr, "Usage: %s [-vetb] [file] [colors]\n", argv[0]);
+        fprintf(stderr, "Usage: %s [-vetb] [file] [colors] [order]\n", argv[0]);
         exit(-1);
     }
   }
   if(optind == 1) {
-    fprintf(stderr, "Usage: %s [-vet] [file] [colors]\n", argv[0]);
+    fprintf(stderr, "Usage: %s [-vet] [file] [colors] [order]\n", argv[0]);
     exit(-1);
   }
 
   int k = std::stoi(argv[optind + 1]);
 
+
   freopen(argv[optind], "r", stdin);
+  int order = parse();
 
   std::ios::sync_with_stdio(false);
 
-  int order = parse();
   int count = 1;
   std::vector<Graph*> graphs;
   while(!std::cin.eof() && std::cin.good()) {

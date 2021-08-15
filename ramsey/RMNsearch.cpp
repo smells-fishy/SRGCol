@@ -15,17 +15,48 @@
 #include <utility>
 #include <vector>
 
-void encode_regularity (int degmin, int degmax) {
+std::vector<std::pair<int, int> > edges;
+int counter;
+int edgec;
+
+inline int seq_counter (int i, int j) {
+  return i * j + counter;
+}
+
+void encode_regularity (int degmin, int degmax, int verts) {
   
   /* 
   * 
-  *  We must encode both at most degmax connections 
-  *  and at least degmin connections
+  *  Encoded via the Sinz encoding:
+  *  (-x_1 or s_(1,1))
+  *    For 1 < i < n:
+  *    (-x_i or s_(i,1))
+  *    (-s_(i-1,1) or s_(i_1))
+  *      For 1 < j <= k:
+  *      (-x_i or -s_(i-1,j-1) or s_(i,j))
+  *      (-s_(i-1,j) or s_(i,j))
+  *    (-x_i or -s_(i-1,k))
+  *  (-x_n or -s_(n-1,k))
+  *  (-s_(1,j)) for 1 < j <= k
+  * 
+  *  The outer for loop encodes the maximal adjacencies of 
+  *  vertex i.
   * 
   */
-
   
+  /* Keeps track of if a clause is the first */
+  bool first = true;
 
+  /* The first set encodes at most degmax connections */
+  for (int v = 1; v <= verts; v++) {
+    for (int i = 0; i < edgec; i++) {
+      if (edges[i].first == v || edges[i].second == v) {
+        if (first) first = false;
+        std::cout << i + 1 << " " << seq_counter(i, 1) 
+                  << " "<< 0 << std::endl;
+      }
+    }
+  }
 }
 
 int main (int argc, char *argv[]) {
@@ -45,6 +76,15 @@ int main (int argc, char *argv[]) {
   int degmin = std::stoi(argv[4]);
   int degmax = std::stoi(argv[5]);
 
+  /* Generate a vector of all possible edges on a graph of the given order */
+  
+  for (int i = 0; i < order - 1; i++) {
+    for (int j = i + 1; j < order; j++) {
+      edges.push_back(std::make_pair(i,j));
+    }
+  }
 
+  edgec = edges.size();
+  counter = edgec;
   
 }

@@ -34,3 +34,4 @@ def gulg(filename):
             if (vert[j][1] == vert[i][1][0] or vert[j][1] == vert[i][1][1]):
               GuLg.add_edge(vert[i], vert[j])
     amNoBracket(GuLg.adjacency_matrix(), upper)
+    count++
