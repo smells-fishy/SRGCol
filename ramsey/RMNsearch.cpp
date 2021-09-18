@@ -31,7 +31,7 @@ void encode_regularity (int degmin, int degmax, int verts) {
   *  (-x_1 or s_(1,1))
   *    For 1 < i < n:
   *    (-x_i or s_(i,1))
-  *    (-s_(i-1,1) or s_(i_1))
+  *    (-s_(i-1,1) or s_(i, 1))
   *      For 1 < j <= k:
   *      (-x_i or -s_(i-1,j-1) or s_(i,j))
   *      (-s_(i-1,j) or s_(i,j))
@@ -49,14 +49,40 @@ void encode_regularity (int degmin, int degmax, int verts) {
 
   /* The first set encodes at most degmax connections */
   for (int v = 1; v <= verts; v++) {
-    for (int i = 0; i < edgec; i++) {
+    std::cout << "-" << 1 << " " << seq_counter (1, 1) 
+              << " " << 0 << std::endl;
+    for (int j = 2; j <= degmax; j++) {
+      std::cout << "-" << seq_counter (1, j) 
+                << " " << 0 << std::endl;
+    }
+    for (int i = 2; i < edgec; i++) {
       if (edges[i].first == v || edges[i].second == v) {
-        if (first) first = false;
-        std::cout << i + 1 << " " << seq_counter(i, 1) 
-                  << " "<< 0 << std::endl;
+        std::cout << "-" << i 
+                  << " " << seq_counter (i, 1) 
+                  << " " << 0 << std::endl;
+        std::cout << "-" << seq_counter (i - 1, 1) 
+                  << " " << seq_counter (i, 1) 
+                  << " " << 0 << std::endl;
+        for (int j = 2; j <= degmax; j++) {
+          std::cout << "-" << i << " -" << seq_counter (i - 1, j - 1) 
+                    << " " << seq_counter (i, j) 
+                    << " " << 0 << std::endl;
+          std::cout << "-" << seq_counter (i - 1, j)
+                    << " " << seq_counter (i, j) 
+                    << " " << 0 << std::endl;
+        }
+        std::cout << "-" << i + 1 << " "
+                  << "-" << seq_counter (i, degmax) 
+                  << " " << 0 << std::endl;
       }
+      std::cout << "-" << edgec
+                << " " << seq_counter (edgec - 1, degmax)
+                << " " << 0 << std::endl;
     }
   }
+
+  /* Now, we encode at most degmin non-connections */
+  
 }
 
 int main (int argc, char *argv[]) {
